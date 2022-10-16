@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+
+
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -13,8 +15,9 @@ export default function LoginScreen({navigation}) {
     const onLoginPress = () => {
         navigation.navigate("Home")
     }
-
+    
     return (
+        
         <View style={styles.container}>
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}

@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   splashscreen: {
-    height: 725,
-    width : 360,
+    height: 800,
+    width :500,
   }
 });
 
