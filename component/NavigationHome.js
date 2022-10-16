@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Animated, Text, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-export default class BottomNavigator extends Component {
-    toggleOpen = () => {
+export default function NavigationHomeScreen({}){
+    const navigation = useNavigation();
+    const toggleOpen = () => {
 
 
     }
-
-    render() {
+    
         return (
             <View style={{
                 flex: 0,
@@ -48,14 +49,14 @@ export default class BottomNavigator extends Component {
 
                         flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
                     }}>
-                        <TouchableOpacity onPress={() => { Alert.alert("Home") }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                             <Image
 
                                 style={{ width: 30, height: 30, marginLeft: 15 }}
 
                                 source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1946/1946436.png' }}
 
-                                onPress={() => { Alert.alert("home") }}
+                               
                             >
 
                             </Image>
@@ -121,7 +122,7 @@ export default class BottomNavigator extends Component {
                 </View>
             </View>
         );
-    }
+    
 
     
 }

@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
-import BottomNavigator from './NavigationHome';
+import NavigationHomeScreen from './NavigationHome';
 
 
 
@@ -118,7 +118,7 @@ export default function HomeScreen({ navigation }) {
             )
           }}
           />
-          <BottomNavigator></BottomNavigator>
+          <NavigationHomeScreen></NavigationHomeScreen>
       </View>
     );
 }
