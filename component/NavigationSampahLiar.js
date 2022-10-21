@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, An
 import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function NavigationHomeScreen({}){
+export default function NavigationSampahLiarScreen({}){
     const navigation = useNavigation();
 
     
@@ -11,8 +11,7 @@ export default function NavigationHomeScreen({}){
             <View style={{
                 flex: 1,
                 flexDirection: 'column',
-
-                justifyContent: 'flex-end'
+                backgroundColor: 'grey'
 
             }}>
                 <View style={styles.contentContainer}>      
@@ -52,7 +51,7 @@ export default function NavigationHomeScreen({}){
 
                                 style={{ width: 30, height: 30, marginLeft: 15 }}
 
-                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1946/1946436.png' }}
+                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1946/1946488.png' }}
 
                                
                             >
@@ -88,7 +87,7 @@ export default function NavigationHomeScreen({}){
 
                                 style={{ width: 30, height: 30, marginLeft: 15, marginTop: 10 }}
 
-                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/3042/3042728.png' }}
+                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/4120/4120467.png' }}
 
                                
                             >
@@ -131,6 +130,7 @@ export default function NavigationHomeScreen({}){
                     {/* </View> */}
                 </View>
                 </View>
+                
             </View>
         );
     

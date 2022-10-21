@@ -19,8 +19,8 @@ const cards = [
 
 export default function HomeScreen({ navigation }) {
   const data = [
-    {id:0, title: "Setor Sampah", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3096/3096673.png"},
-    {id:1, title: "Sampah Liar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3042/3042728.png"},
+    {id:0, title: "Setor Sampah", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3096/3096673.png", navigateTo: "Login"},
+    {id:1, title: "Sampah Liar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3042/3042728.png", navigateTo: "SampahLiar"},
 
   ]
 
@@ -118,7 +118,10 @@ export default function HomeScreen({ navigation }) {
             )
           }}
           />
-          <NavigationHomeScreen></NavigationHomeScreen>
+          <View>
+            <NavigationHomeScreen></NavigationHomeScreen>
+          </View>
+          
       </View>
     );
 }

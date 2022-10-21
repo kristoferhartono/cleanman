@@ -12,14 +12,23 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "expo": "~46.0.13",
+    "expo-camera": "~12.3.0",
+    "expo-image-picker": "~13.3.1",
+    "expo-location": "~14.3.0",
+    "expo-media-library": "~14.2.0",
+    "expo-permissions": "~13.2.0",
     "expo-status-bar": "~1.4.0",
     "radio-buttons-react-native": "^1.0.4",
     "react": "18.0.0",
     "react-native": "0.69.6",
+    "react-native-google-places-autocomplete": "^2.4.1",
     "react-native-ico-material-design": "^3.3.1",
+    "react-native-image-picker": "^4.10.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-maps": "0.31.1",
     "react-native-radio-buttons-group": "^2.2.11",
-    "react-native-svg": "^13.4.0"
+    "react-native-svg": "^13.4.0",
+    "react-native-table-component": "^1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

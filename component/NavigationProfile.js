@@ -3,19 +3,26 @@ import { View, Image, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, An
 import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function NavigationHomeScreen({}){
+export default function NavigationProfileScreen({}){
     const navigation = useNavigation();
+    const toggleOpen = () => {
 
+
+    }
     
         return (
             <View style={{
-                flex: 1,
+                flex: 0,
                 flexDirection: 'column',
+                backgroundColor: 'grey',
 
-                justifyContent: 'flex-end'
+
+                
+                
 
             }}>
-                <View style={styles.contentContainer}>      
+                <View style={styles.contentContainer}> 
+  
                 <View style={{
 
                     position: 'absolute',
@@ -37,7 +44,7 @@ export default function NavigationHomeScreen({}){
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     paddingVertical: 10,
-                    paddingHorizontal: 25
+                    paddingHorizontal: 25,
 
 
                 }}>
@@ -52,7 +59,7 @@ export default function NavigationHomeScreen({}){
 
                                 style={{ width: 30, height: 30, marginLeft: 15 }}
 
-                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1946/1946436.png' }}
+                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1946/1946488.png' }}
 
                                
                             >
@@ -64,14 +71,14 @@ export default function NavigationHomeScreen({}){
                     </View>
                     
                     <View style={{
-                        flexDirection: 'column', alignItems: 'center',justifyContent:'center',marginStart:20
+                        flexDirection: 'column', alignItems: 'center',justifyContent:'center',marginStart:30
                     }}>
 
                         <TouchableOpacity
                             onPress={() => { Alert.alert("setor") }}
                         >
                             <Image
-                                style={{  width: 30, height: 30 }}
+                                style={{  width: 30, height: 30, }}
                                 source={{ uri: 'https://cdn-icons-png.flaticon.com/128/3096/3096673.png' }}
                                 onPress={() => { Alert.alert("click") }}
                             />
@@ -83,31 +90,18 @@ export default function NavigationHomeScreen({}){
                         <View style={{
                              flexDirection: 'column', alignItems: 'center',justifyContent:'space-between',marginStart:5,
                         }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('SampahLiar')}>
-                            <Image
 
-                                style={{ width: 30, height: 30, marginLeft: 15, marginTop: 10 }}
-
-                                source={{ uri: 'https://cdn-icons-png.flaticon.com/128/3042/3042728.png' }}
-
-                               
-                            >
-
-                            </Image>
-
-                        </TouchableOpacity>
-
-                            {/* <TouchableOpacity
-                                onPress={() => { Alert.alert("liar") }}
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('SampahLiar')}
                             >
                                 <Image
                                     source={{ uri: 'https://cdn-icons-png.flaticon.com/128/3042/3042728.png' }}
                                     onPress={() => { Alert.alert("click") }}
-                                    style={{ marginHorizontal: 16, width: 30, height: 30, marginTop: 10, marginLeft: -50}}
+                                    style={{ marginHorizontal: 16, width: 30, height: 30, marginTop: 10}}
                                     containerStyle={{ marginHorizontal: 16 }}
                                 />
                        
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
 
                         </View>
                         <View style={{
@@ -118,11 +112,12 @@ export default function NavigationHomeScreen({}){
                                onPress={() => navigation.navigate('Profile')}
                             >
                                 <Image
-                                    source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1077/1077063.png' }}
+                                    source={{ uri: 'https://cdn-icons-png.flaticon.com/128/1077/1077114.png' }}
 
                                     style={{ marginHorizontal: 16, width: 30, height: 30, marginBottom:10 }}
                                     containerStyle={{ marginHorizontal: 16 }}
                                 />
+                     
                             </TouchableOpacity>
 
                            
@@ -147,6 +142,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'blue'
+    },
+    contentContainer: {
+        flex: 1 // pushes the footer to the end of the screen
     },
     button: {
         width: 60,
@@ -175,13 +173,6 @@ const styles = StyleSheet.create({
         borderColor: '#fff'
 
 
-    },
-
-    contentContainer: {
-        flex: 1 // pushes the footer to the end of the screen
-    },
-    footer: {
-        height: 100
     }
 
 

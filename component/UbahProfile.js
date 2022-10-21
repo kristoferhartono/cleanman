@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RadioGroup from 'react-native-radio-buttons-group';
 
-export default function RegistrationScreen({navigation}) {
+export default function UbahProfileScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
     const onFooterLinkPress = () => {
-        navigation.navigate('Login')
+        navigation.navigate('Profile')
     }
 
     const onRegisterPress = () => {
-        navigation.navigate('Login')
+        navigation.navigate('Home')
     }
 
     const [lokasi, setLokasi] = useState([
@@ -55,7 +55,22 @@ export default function RegistrationScreen({navigation}) {
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
-                <Text style={styles.title}>Sign Up</Text>
+               
+                <TouchableOpacity style={styles.backbutton} onPress={() => onFooterLinkPress()}>
+                    <Image style={styles.backspace}
+                    source= {require('../assets/keyboard_backspace.png')}/>
+                </TouchableOpacity>
+                
+                
+                <Pressable style={styles.title3} onPress={() => onRegisterPress()}>
+                    <Image style={styles.title} source={{uri: 'https://images.unsplash.com/photo-1620117654333-c125fef82817?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'}}/>
+                    <Image
+                        style={styles.title2}
+                        source={require('../assets/kamera.png')} 
+                        />
+                </Pressable>
+    
+                
                 <TextInput
                     style={styles.input}
                     placeholder='Nama Lengkap'
@@ -71,26 +86,6 @@ export default function RegistrationScreen({navigation}) {
                     placeholderTextColor="#24292E"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#24292E"
-                    secureTextEntry
-                    placeholder='Kata Sandi'
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#24292E"
-                    secureTextEntry
-                    placeholder='Konfirmasi Kata Sandi'
-                    onChangeText={(text) => setConfirmPassword(text)}
-                    value={confirmPassword}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -126,11 +121,8 @@ export default function RegistrationScreen({navigation}) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>
-                    <Text style={styles.buttonTitle}>Buat Akun</Text>
+                    <Text style={styles.buttonTitle}>Simpan</Text>
                 </TouchableOpacity>
-                <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Sudah memiliki akun? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
-                </View>
             </KeyboardAwareScrollView>
         </View>
     )
@@ -142,14 +134,46 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F9FEFD'
     },
-    title: {
-      alignSelf: "center",
-      fontSize: 40,
-      fontWeight: "bold",
-      marginTop: 35,
-      marginBottom: 30,
+    backspace: {
+       height: 35,
+       width: 35,
+       marginTop: 30,
+       marginLeft : 30,
     },
-
+    backbutton: {
+        height: 35,
+        width: 35,
+        marginTop: 0,
+        marginLeft : 0,
+    },
+    title: {
+        width: 130,
+        height: 130,
+        borderRadius: 63,
+        borderWidth: 4,
+        borderColor: "white",
+        marginBottom: 40,
+        alignSelf:'center',
+        marginTop:30
+    },
+    title2: {
+        width: 50,
+        height: 50,
+        marginBottom:40,
+        alignSelf:'center',
+        marginTop:-90,
+        marginLeft: 80
+    },
+    title3:{
+        width: 130,
+        height: 130,
+        borderRadius: 63,
+        borderWidth: 4,
+        borderColor: "white",
+        marginBottom: 70,
+        alignSelf:'center',
+        marginTop:20
+    },
     input: {
         height: 48,
         borderRadius: 5,
@@ -197,5 +221,5 @@ const styles = StyleSheet.create({
         color: "#AAEEE9",
         fontWeight: "bold",
         fontSize: 16
-    }
+    },
 })
