@@ -12,7 +12,7 @@ export default function SampahLiarScreen({navigation}) {
         navigation.navigate("Maps")
     }
         const onKirimPress = () => {
-            navigation.navigate("Home")
+            navigation.navigate("Maps")
     }
     return (
         
