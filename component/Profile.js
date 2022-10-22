@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Dimensions, Alert, ScrollView} from 'react-native';
 import NavigationProfileScreen from './NavigationProfile';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Profile ({navigation}) {
     const onAddPress = () => {
@@ -19,6 +20,7 @@ export default function Profile ({navigation}) {
     
     return (
       <View style={styles.container}>
+        <KeyboardAwareScrollView>
           <View style={styles.header}>
           </View>
           <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1620117654333-c125fef82817?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'}}/>
@@ -62,10 +64,13 @@ export default function Profile ({navigation}) {
                 <Text style={{color: "#000000", fontWeight: 'bold'}}>Log Out</Text> 
               </TouchableOpacity>
             </View>
-        </View>
+        </View>       
+        <View style = {{marginTop: 100}}></View>
+                
+        </KeyboardAwareScrollView>
 
-        <View style={styles.footer}>
-          <NavigationProfileScreen></NavigationProfileScreen>
+        <View style={{position: 'absolute', left: 0, right: 0, bottom: 0}}>
+        <NavigationProfileScreen></NavigationProfileScreen>
         </View>
         
       </View>

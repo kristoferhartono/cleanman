@@ -12,7 +12,7 @@ export default function SampahLiarScreen({navigation}) {
         navigation.navigate("Maps")
     }
         const onKirimPress = () => {
-            navigation.navigate("Maps")
+            navigation.navigate("Home")
     }
     return (
         
@@ -45,7 +45,12 @@ export default function SampahLiarScreen({navigation}) {
                 </TouchableOpacity>
                 </View>
 
-                <NavigationSampahLiarScreen></NavigationSampahLiarScreen>
+                </KeyboardAwareScrollView>
+
+                <View style={{position: 'absolute', left: 0, right: 0, bottom: 0}}>
+                    <NavigationSampahLiarScreen></NavigationSampahLiarScreen>
+                </View>
+                
 
                 {/* <TextInput
                     style={styles.input}
@@ -77,7 +82,7 @@ export default function SampahLiarScreen({navigation}) {
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Belum memiliki akun? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Daftar sekarang!</Text></Text>
                 </View> */}
-            </KeyboardAwareScrollView>
+           
             
         </View>
     )
