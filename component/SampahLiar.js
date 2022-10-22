@@ -12,7 +12,7 @@ export default function SampahLiarScreen({navigation}) {
         navigation.navigate("Maps")
     }
         const onKirimPress = () => {
-            navigation.navigate("Maps")
+            navigation.navigate("Home")
     }
     return (
         
@@ -44,7 +44,7 @@ export default function SampahLiarScreen({navigation}) {
                     <Text style={styles.buttonTitle}>Kirim</Text>
                 </TouchableOpacity>
                 </View>
-
+                <View style = {{marginTop: 185}}></View>
                 <NavigationSampahLiarScreen></NavigationSampahLiarScreen>
 
                 {/* <TextInput

@@ -68,12 +68,11 @@ export default function NavigationHomeScreen({}){
                     }}>
 
                         <TouchableOpacity
-                            onPress={() => { Alert.alert("setor") }}
+                            onPress={() =>  navigation.navigate('SetorSampah') }
                         >
                             <Image
                                 style={{  width: 30, height: 30 }}
                                 source={{ uri: 'https://cdn-icons-png.flaticon.com/128/3096/3096673.png' }}
-                                onPress={() => { Alert.alert("click") }}
                             />
                        
                         </TouchableOpacity>

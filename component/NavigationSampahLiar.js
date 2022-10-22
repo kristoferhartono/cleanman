@@ -11,7 +11,8 @@ export default function NavigationSampahLiarScreen({}){
             <View style={{
                 flex: 1,
                 flexDirection: 'column',
-                backgroundColor: 'grey'
+                backgroundColor: 'grey',
+                justifyContent: 'flex-end'
 
             }}>
                 <View style={styles.contentContainer}>      
@@ -67,12 +68,11 @@ export default function NavigationSampahLiarScreen({}){
                     }}>
 
                         <TouchableOpacity
-                            onPress={() => { Alert.alert("setor") }}
+                            onPress={() => navigation.navigate('SetorSampah') }
                         >
                             <Image
                                 style={{  width: 30, height: 30 }}
                                 source={{ uri: 'https://cdn-icons-png.flaticon.com/128/3096/3096673.png' }}
-                                onPress={() => { Alert.alert("click") }}
                             />
                        
                         </TouchableOpacity>
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1 // pushes the footer to the end of the screen
     },
+
     footer: {
         height: 100
     }

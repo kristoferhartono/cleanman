@@ -12,6 +12,7 @@ import SplashScreen from './component/SplashScreen';
 import LoginScreen from './component/Login';
 import HomeScreen from './component/Home';
 import RegistrationScreen from './component/SignUp';
+import SetorSampahScreen from './component/SetorSampah';
 import SampahLiarScreen from './component/SampahLiar';
 import MapsScreen from './component/Maps';
 import ProfileScreen from './component/Profile';
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Signup" component={RegistrationScreen} />
+        <Stack.Screen name ="SetorSampah" component={SetorSampahScreen} />
         <Stack.Screen name="SampahLiar" component={SampahLiarScreen} />
         <Stack.Screen name="Maps" component={MapsScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -41,7 +43,6 @@ export default function App() {
         <Stack.Screen name="Riwayat" component={RiwayatScreen} />
       </Stack.Navigator>
       
-    
     </NavigationContainer>
     
     

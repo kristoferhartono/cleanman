@@ -64,9 +64,9 @@ export default function Profile ({navigation}) {
             </View>
         </View>
 
-        <View style={styles.footer}>
-          <NavigationProfileScreen></NavigationProfileScreen>
-        </View>
+        <View style = {{marginTop: 310}}></View>
+        <NavigationProfileScreen></NavigationProfileScreen>
+        
         
       </View>
     );
