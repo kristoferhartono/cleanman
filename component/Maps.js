@@ -1,10 +1,12 @@
 import * as React from "react"
-import { Dimensions, StyleSheet, Text, View } from "react-native"
+import { Dimensions, StyleSheet, Text, View,TouchableOpacity } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, {Callout, Circle, Marker } from "react-native-maps"
 
-export default function MapsScreen() {
-	const [ region, setRegion ] = React.useState({
+
+export default function MapsScreen({navigation}) {
+
+ 	const [ region, setRegion ] = React.useState({
 		latitude: -6.915502599855987,
 		longitude: 107.60458365082741,
 		latitudeDelta: 0.0922,
@@ -15,7 +17,9 @@ export default function MapsScreen() {
 		longitude: region.longitude
 	})
 	
-
+  const onKirimPress = () => {
+    navigation.navigate("SampahLiar")
+}
 	return (
 		<View style={{  flex: 1 }}>
 			<GooglePlacesAutocomplete
@@ -47,6 +51,13 @@ export default function MapsScreen() {
 					listView: { backgroundColor: "white" }
 				}}
 			/>
+      <View>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => onKirimPress()}>
+                    <Text style={styles.buttonTitle}>Bagikan Lokasi</Text>
+                </TouchableOpacity>
+                </View>
 
 			<MapView
 				style={styles.map}
@@ -93,29 +104,20 @@ const styles = StyleSheet.create({
 	map: {
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height
-	}
+	},
+  button: {
+    backgroundColor: '#AAEEE9',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 50,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: 'center'
+},
+buttonTitle: {
+    color: '#000000',
+    fontSize: 16,
+    fontWeight: "bold"
+},
 })
-// import * as React from 'react';
-// import MapView from 'react-native-maps';
-// import { StyleSheet, Text, View, Dimensions } from 'react-native';
-
-// export default function MapsScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <MapView style={styles.map} />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   map: {
-//     width: Dimensions.get('window').width,
-//     height: Dimensions.get('window').height,
-//   },
-// });
