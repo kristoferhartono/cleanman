@@ -21,6 +21,7 @@ import RiwayatScreen from './component/Riwayat';
 
 import HomeBankSampahScreen from './component/HomeBankSampah';
 import BankSampahMasukScreen from './component/BankSampahMasuk';
+import BankSampahKeluarScreen from './component/BankSampahKeluar';
 import ProfileBankSampahScreen from './component/ProfileBankSampah';
 import UbahProfileBankSampahScreen from './component/UbahProfileBankSampah';
 
@@ -50,6 +51,7 @@ export default function App() {
 
         <Stack.Screen name="HomeBankSampah" component={HomeBankSampahScreen} />
         <Stack.Screen name ="BankSampahMasuk" component={BankSampahMasukScreen} />
+        <Stack.Screen name ="BankSampahKeluar" component={BankSampahKeluarScreen} />
         <Stack.Screen name="ProfileBankSampah" component={ProfileBankSampahScreen} />
         <Stack.Screen name="UbahProfileBankSampah" component={UbahProfileBankSampahScreen} />
 

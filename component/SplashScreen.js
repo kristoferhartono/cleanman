@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   splashscreen: {
-    height: 800,
+    height: 1000,
     width :500,
     resizeMode : "cover"
   }

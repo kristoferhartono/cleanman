@@ -21,7 +21,7 @@ export default function ProfileBankSampah ({navigation}) {
     
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView>
+        {/* <KeyboardAwareScrollView> */}
           <View style={styles.header}>
           </View>
           <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1620117654333-c125fef82817?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'}}/>
@@ -42,9 +42,9 @@ export default function ProfileBankSampah ({navigation}) {
               </TouchableOpacity>
             </View>
         </View>       
-        <View style = {{marginTop: 200}}></View>
+        {/* <View style = {{marginTop: 300}}></View>
                 
-        </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView> */}
 
         <View style={{position: 'absolute', left: 0, right: 0, bottom: 0}}>
         <NavigationProfileBankSampahScreen></NavigationProfileBankSampahScreen>
@@ -56,6 +56,11 @@ export default function ProfileBankSampah ({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+
+    backgroundColor : 'white'
+  },
   header:{
     backgroundColor: "#aaeee9",
     height:150,

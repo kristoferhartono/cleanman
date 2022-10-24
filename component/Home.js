@@ -52,9 +52,9 @@ export default function HomeScreen({ navigation }) {
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
           Halo, Davin Setiawan</Text>
-        </View>
+        
           
-      <View>
+      
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={container}>
           <ScrollView

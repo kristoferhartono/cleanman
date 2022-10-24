@@ -9,19 +9,20 @@ import NavigationBankSampahMasukScreen from './NavigationBankSampahMasuk';
 
 export default function BankSampahMasukScreen({navigation}) {
     const [selected, setSelected] = React.useState("");
+    const [berat, setBerat] = useState('');
+    const [harga, setHarga] = useState('');
+    const [nama, setNama] = useState('');
+
 
     const onKirimPress = () => {
         navigation.navigate("HomeBankSampah")
     }
 
-    const data = [{key:'1',value:'0,5'}, {key: '2', value:'1'}, {key: '3', value:'1,5'}, 
-    {key: '4', value:'2'}, {key: '5', value:'2,5'}, {key: '6', value:'3'}, {key: '7', value:'3,5'}, {key: '8', value:'4'}];
-
-    const tps = [{key:'1',value:'TPS Ganesha'}, {key: '2', value:'TPS Babakan Siliwangi'}, {key: '3', value:'TPS Baranang Siang'}, 
-    {key: '4', value:'TPS Gudang Selatan'}, {key: '5', value:'TPS Patra Komala'}];
-
-    const asal = [{key:'1',value:'RW I'}, {key: '2', value:'RW II'}, {key: '3', value:'RW III'}, 
-    {key: '4', value:'RW IV'}, {key: '5', value:'RW V'}, {key: '6', value:'RW VI'}, {key: '7', value:'RW VII'}, {key: '8', value:'RW VIII'}];
+    const data = [{key:'1',value:'Arsip'}, {key: '2', value:'Arsip warna'}, {key: '3', value:'Dus tebal'}, 
+    {key: '4', value:'Kertas buram'}, {key: '5', value:'Duplex'}, {key: '6', value:'Majalah'}, {key: '7', value:'Koran'}, {key: '8', value:'Karung semen'}, {key:'9',value:'Gelas bersih cup a'}, {key: '10', value:'Gelas kotor cup b'}, {key: '11', value:'Ember hitam'}, 
+    {key: '12', value:'Emberan'}, {key: '13', value:'Galon'}, {key: '14', value:'Toples'}, {key: '15', value:'Kerasan'}, {key: '16', value:'Teh gelas'}, {key:'17',value:'Tutup galon'}, {key: '18', value:'Mainan'}, {key: '19', value:'Botol warna'}, 
+    {key: '20', value:'PET A'}, {key: '21', value:'PET B'}, {key: '22', value:'Aluminium panci'}, {key: '23', value:'Aluminium aro'}, {key: '24', value:'Besi'}, {key:'25',value:'Kaleng'}, {key: '26', value:'Seng'}, {key: '27', value:'Stainless'}, 
+    {key: '28', value:'Kompos/Organik'}, {key: '29', value:'Minyak jelantah'}, {key: '30', value:'Botol beling'}];
 
     const [alat, setAlat] = useState([
         {
@@ -35,10 +36,7 @@ export default function BankSampahMasukScreen({navigation}) {
         }
     ])
 
-    function onPressRadioButtonAlat(radioArrayAlat) {
-        console.log(radioArrayAlat);
-        setAlat(radioArrayAlat);
-    }
+
 
     return (
         <View style={styles.container}>
@@ -53,59 +51,57 @@ export default function BankSampahMasukScreen({navigation}) {
                     <Text style={styles.asterix}>*</Text>
                 </View>
 
-                <View style={styles.row}>
-                    <Image style = {styles.image1} source={require('../assets/TongSampah.png')}></Image>
-                    <Image style = {styles.image2} source={require('../assets/GerobakSampah.png')}></Image>
-                </View>
-
-                <RadioGroup 
-                    containerStyle={{
-                        justifyContent: 'flex-start', 
-                        alignItems: 'flex-start',
-                        marginLeft: 30,
-
-                    }}
-                    radioButtons={alat} 
-                    layout="row"
-                    onPress={onPressRadioButtonAlat} 
-                />
-
-                <View style = {styles.row}>
-                    <Text style={styles.textLiter1}>(120 Liter)</Text>
-                    <Text style={styles.textLiter2}>(1000 Liter)</Text>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.textJudul2}>Jumlah Volume</Text>
-                    <Text style={styles.asterix2}>*</Text>
-                </View>
-
-                <View style = {{paddingHorizontal:40,paddingRight: 60,flex:1}}>
-                    <SelectList data={data} setSelected={setSelected} defaultOption={{ key:'1',value:'0,5'}}>
+                <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
+                    
+                    <SelectList data={data} setSelected={setSelected}>
                     </SelectList>
                 </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.textJudul}>Berat (kg)</Text>
+                    <Text style={styles.asterix2}>*</Text>
+                </View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Masukan berat disini'
+                    placeholderTextColor="#808080"
+                    onChangeText={(text) => setBerat(text)}
+                    value={berat}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+
+                <View style={styles.row}>
+                    <Text style={styles.textJudul}>Harga Total (Rupiah)</Text>
+                    <Text style={styles.asterix3}>*</Text>
+                </View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Masukan harga disini'
+                    placeholderTextColor="#808080"
+                    onChangeText={(text) => setHarga(text)}
+                    value={harga}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+
+                <View style={styles.row}>
+                    <Text style={styles.textJudul}>Nama Penyetor</Text>
+                    <Text style={styles.asterix4}>*</Text>
+                </View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Masukan nama penyetor  disini'
+                    placeholderTextColor="#808080"
+                    onChangeText={(text) => setNama(text)}
+                    value={nama}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
 
                 <Camera></Camera>
                 
-                <View style={styles.row}>
-                    <Text style={styles.textJudul2}>TPS Setor Sampah</Text>
-                    <Text style={styles.asterix3}>*</Text>
-                </View>
-
-                <View style = {{paddingHorizontal:40,paddingRight: 60,flex:1}}>
-                    <SelectList data={tps} setSelected={setSelected} defaultOption={{ key:'1',value:'TPS Ganesha'}}>
-                    </SelectList>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.textJudul2}>Asal Sampah</Text>
-                    <Text style={styles.asterix4}>*</Text>
-                </View>
-
-                <View style = {{paddingHorizontal:40,paddingRight: 60,flex:1}}>
-                    <SelectList data={asal} setSelected={setSelected} defaultOption={{ key:'1',value:'RW I'}}>
-                    </SelectList>
-                </View>
+                
                 
                 <View style = {{marginTop: 20}}></View>
                 
@@ -134,9 +130,10 @@ export default function BankSampahMasukScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+
         backgroundColor: '#F9FEFD',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
     },
 
     title: {
@@ -154,7 +151,17 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginBottom: 20,
     },
-
+    input: {
+        height: 48,
+        borderRadius: 10,
+        overflow: 'hidden',
+        backgroundColor: '#F5F5F5',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 40,
+        marginRight: 40,
+        paddingLeft: 16
+    },
     textJudul: {
         fontSize: 16,
         color: '#2e2e2d',
@@ -210,31 +217,31 @@ const styles = StyleSheet.create({
         color: '#EF5DA8',
         fontWeight: "bold",
         marginTop: 10,
-        marginRight: 225
+        marginRight: 295
       },
 
     asterix2: {
         fontSize: 16,
         color: '#EF5DA8',
         fontWeight: "bold",
-        marginTop: 2,
-        marginRight: 217
+        marginTop: 10,
+        marginRight: 330
     },
 
     asterix3: {
         fontSize: 16,
         color: '#EF5DA8',
         fontWeight: "bold",
-        marginTop: 2,
-        marginRight: 195
+        marginTop: 10,
+        marginRight: 250
     },
 
     asterix4: {
         fontSize: 16,
         color: '#EF5DA8',
         fontWeight: "bold",
-        marginTop: 2,
-        marginRight: 235
+        marginTop: 10,
+        marginRight: 290
     },
 
       row: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between'},

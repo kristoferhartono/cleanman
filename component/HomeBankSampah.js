@@ -20,7 +20,7 @@ const cards = [
 export default function HomeBankSampahScreen({ navigation }) {
   const data = [
     {id:0, title: "Sampah Masuk", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/861/861180.png", navigateTo: "BankSampahMasuk"},
-    {id:1, title: "Sampah Keluar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/6291/6291449.png", navigateTo: "SetorSampah"},
+    {id:1, title: "Sampah Keluar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/6291/6291449.png", navigateTo: "BankSampahKeluar"},
 
   ]
 

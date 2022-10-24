@@ -79,6 +79,11 @@ export default function Profile ({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+
+    backgroundColor : 'white'
+  },
   header:{
     backgroundColor: "#aaeee9",
     height:150,
