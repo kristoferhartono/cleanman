@@ -4,13 +4,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Camera from './Camera';
 import NavigationSetorSampahScreen from './NavigationSetorSampah';
 import RadioGroup from 'react-native-radio-buttons-group';
-import SelectList from 'react-native-dropdown-select-list'
+import SelectList from 'react-native-dropdown-select-list';
+import NavigationBankSampahMasukScreen from './NavigationBankSampahMasuk';
 
-export default function SetorSampahScreen({navigation}) {
+export default function BankSampahMasukScreen({navigation}) {
     const [selected, setSelected] = React.useState("");
 
     const onKirimPress = () => {
-        navigation.navigate("Home")
+        navigation.navigate("HomeBankSampah")
     }
 
     const data = [{key:'1',value:'0,5'}, {key: '2', value:'1'}, {key: '3', value:'1,5'}, 
@@ -44,11 +45,11 @@ export default function SetorSampahScreen({navigation}) {
             <KeyboardAwareScrollView>
                 <Image
                     style={styles.logo}
-                    source={require('../assets/LogoSetorSampah.png')}></Image>
-                <Text style={styles.title}>Setor Sampah</Text>
-                
+                    source={require('../assets/LogoBankSampahMasuk.png')}></Image>
+                <Text style={styles.title}>Sampah Masuk</Text>
+
                 <View style={styles.row}>
-                    <Text style={styles.textJudul}>Yang Digunakan</Text>
+                    <Text style={styles.textJudul}>Jenis Sampah</Text>
                     <Text style={styles.asterix}>*</Text>
                 </View>
 
@@ -121,7 +122,7 @@ export default function SetorSampahScreen({navigation}) {
 
             </KeyboardAwareScrollView>
             <View style={{position: 'absolute', left: 0, right: 0, bottom: 0}}>
-            <NavigationSetorSampahScreen></NavigationSetorSampahScreen>
+            <NavigationBankSampahMasukScreen></NavigationBankSampahMasukScreen>
             </View>
 
 

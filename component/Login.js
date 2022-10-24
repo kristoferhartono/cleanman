@@ -15,6 +15,10 @@ export default function LoginScreen({navigation}) {
     const onLoginPress = () => {
         navigation.navigate("Home")
     }
+
+    const onLogin2Press = () => {
+        navigation.navigate("HomeBankSampah")
+    }
     
     return (
         
@@ -52,8 +56,15 @@ export default function LoginScreen({navigation}) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onLoginPress()}>
-                    <Text style={styles.buttonTitle}>Masuk</Text>
+                    <Text style={styles.buttonTitle}>Masuk Penyetor Sampah</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => onLogin2Press()}>
+                    <Text style={styles.buttonTitle}>Masuk Bank Sampah</Text>
+                </TouchableOpacity>
+
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Belum memiliki akun? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Daftar sekarang!</Text></Text>
                 </View>

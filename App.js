@@ -19,6 +19,12 @@ import ProfileScreen from './component/Profile';
 import UbahProfileScreen from './component/UbahProfile';
 import RiwayatScreen from './component/Riwayat';
 
+import HomeBankSampahScreen from './component/HomeBankSampah';
+import BankSampahMasukScreen from './component/BankSampahMasuk';
+import ProfileBankSampahScreen from './component/ProfileBankSampah';
+import UbahProfileBankSampahScreen from './component/UbahProfileBankSampah';
+
+
 // or any pure javascript modules available in npm
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +47,12 @@ export default function App() {
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="UbahProfile" component={UbahProfileScreen} />
         <Stack.Screen name="Riwayat" component={RiwayatScreen} />
+
+        <Stack.Screen name="HomeBankSampah" component={HomeBankSampahScreen} />
+        <Stack.Screen name ="BankSampahMasuk" component={BankSampahMasukScreen} />
+        <Stack.Screen name="ProfileBankSampah" component={ProfileBankSampahScreen} />
+        <Stack.Screen name="UbahProfileBankSampah" component={UbahProfileBankSampahScreen} />
+
       </Stack.Navigator>
       
     </NavigationContainer>

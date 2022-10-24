@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
-import NavigationHomeScreen from './NavigationHome';
+import NavigationHomeBankSampahScreen from './NavigationHomeBankSampah';
 
 
 
@@ -17,10 +17,10 @@ const cards = [
   { name: 'Card 5', image: "https://image.shutterstock.com/image-vector/freelance-developer-sitting-on-clock-600w-1122554897.jpg"  },
 ]
 
-export default function HomeScreen({ navigation }) {
+export default function HomeBankSampahScreen({ navigation }) {
   const data = [
-    {id:0, title: "Setor Sampah", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3096/3096673.png", navigateTo: "SetorSampah"},
-    {id:1, title: "Sampah Liar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3042/3042728.png", navigateTo: "SampahLiar"},
+    {id:0, title: "Sampah Masuk", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/861/861180.png", navigateTo: "BankSampahMasuk"},
+    {id:1, title: "Sampah Keluar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/6291/6291449.png", navigateTo: "SetorSampah"},
 
   ]
 
@@ -52,9 +52,7 @@ export default function HomeScreen({ navigation }) {
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
           Halo, Davin Setiawan</Text>
-        </View>
-          
-      <View>
+        
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={container}>
           <ScrollView
@@ -107,7 +105,7 @@ export default function HomeScreen({ navigation }) {
           }}
           />
           <View>
-            <NavigationHomeScreen></NavigationHomeScreen>
+            <NavigationHomeBankSampahScreen></NavigationHomeBankSampahScreen>
           </View>
           
       </View>
