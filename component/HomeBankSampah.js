@@ -19,8 +19,8 @@ const cards = [
 
 export default function HomeBankSampahScreen({ navigation }) {
   const data = [
-    {id:0, title: "Sampah Masuk", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/861/861180.png", navigateTo: "BankSampahMasuk"},
-    {id:1, title: "Sampah Keluar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/6291/6291449.png", navigateTo: "BankSampahKeluar"},
+    {id:0, title: "Sampah Ditabung", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/861/861180.png", navigateTo: "BankSampahMasuk"},
+    {id:1, title: "Sampah Dijual", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/6291/6291449.png", navigateTo: "BankSampahKeluar"},
 
   ]
 
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 1,
     flexDirection: 'row',
     alignItems:"center", 
-    justifyContent:"center"
+    justifyContent:"center",
   },
   cardContent: {
     paddingVertical: 12.5,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     alignSelf:'center'
   },
   title:{
-    fontSize:18,
+    fontSize:16,
     flex:1,
     alignSelf:'center',
     color:"#696969"

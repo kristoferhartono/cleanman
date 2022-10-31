@@ -12,6 +12,7 @@ export default function BankSampahMasukScreen({navigation}) {
     const [berat, setBerat] = useState('');
     const [harga, setHarga] = useState('');
     const [nama, setNama] = useState('');
+    const [rumah, setRumah] = useState('');
 
 
     const onKirimPress = () => {
@@ -44,7 +45,7 @@ export default function BankSampahMasukScreen({navigation}) {
                 <Image
                     style={styles.logo}
                     source={require('../assets/LogoBankSampahMasuk.png')}></Image>
-                <Text style={styles.title}>Sampah Masuk</Text>
+                <Text style={styles.title}>Sampah ditabung</Text>
 
                 <View style={styles.row}>
                     <Text style={styles.textJudul}>Jenis Sampah</Text>
@@ -91,14 +92,26 @@ export default function BankSampahMasukScreen({navigation}) {
                 </View>
                 <TextInput
                     style={styles.input}
-                    placeholder='Masukan nama penyetor  disini'
+                    placeholder='Masukan nama penyetor disini'
                     placeholderTextColor="#808080"
                     onChangeText={(text) => setNama(text)}
                     value={nama}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-
+                <View style={styles.row}>
+                    <Text style={styles.textJudul}>Nomor Rumah</Text>
+                    <Text style={styles.asterix5}>*</Text>
+                </View>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Masukan nomor rumah disini'
+                    placeholderTextColor="#808080"
+                    onChangeText={(text) => setRumah(text)}
+                    value={rumah}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
                 <Camera></Camera>
                 
                 
@@ -243,6 +256,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginRight: 290
     },
+    asterix5: {
+        fontSize: 16,
+        color: '#EF5DA8',
+        fontWeight: "bold",
+        marginTop: 10,
+        marginRight: 290
+    },
 
       row: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between'},
 
@@ -264,7 +284,7 @@ const styles = StyleSheet.create({
       button: {
         backgroundColor: '#AAEEE9',
         marginLeft: 40,
-        marginRight: 60,
+        marginRight: 40,
         marginTop: 20,
         height: 48,
         borderRadius: 5,

@@ -8,9 +8,9 @@ import SelectList from 'react-native-dropdown-select-list';
 import NavigationBankSampahKeluarScreen from './NavigationBankSampahKeluar';
 
 export default function BankSampahKeluarScreen({navigation}) {
-    const [selected, setSelected] = React.useState("");
-    const [berat, setBerat] = useState('');
-    const [harga, setHarga] = useState('');
+    // const [selected, setSelected] = React.useState("");
+    // const [berat, setBerat] = useState('');
+    // const [harga, setHarga] = useState('');
     const [nama, setNama] = useState('');
 
 
@@ -18,23 +18,23 @@ export default function BankSampahKeluarScreen({navigation}) {
         navigation.navigate("HomeBankSampah")
     }
 
-    const data = [{key:'1',value:'Arsip'}, {key: '2', value:'Arsip warna'}, {key: '3', value:'Dus tebal'}, 
-    {key: '4', value:'Kertas buram'}, {key: '5', value:'Duplex'}, {key: '6', value:'Majalah'}, {key: '7', value:'Koran'}, {key: '8', value:'Karung semen'}, {key:'9',value:'Gelas bersih cup a'}, {key: '10', value:'Gelas kotor cup b'}, {key: '11', value:'Ember hitam'}, 
-    {key: '12', value:'Emberan'}, {key: '13', value:'Galon'}, {key: '14', value:'Toples'}, {key: '15', value:'Kerasan'}, {key: '16', value:'Teh gelas'}, {key:'17',value:'Tutup galon'}, {key: '18', value:'Mainan'}, {key: '19', value:'Botol warna'}, 
-    {key: '20', value:'PET A'}, {key: '21', value:'PET B'}, {key: '22', value:'Aluminium panci'}, {key: '23', value:'Aluminium aro'}, {key: '24', value:'Besi'}, {key:'25',value:'Kaleng'}, {key: '26', value:'Seng'}, {key: '27', value:'Stainless'}, 
-    {key: '28', value:'Kompos/Organik'}, {key: '29', value:'Minyak jelantah'}, {key: '30', value:'Botol beling'}];
+    // const data = [{key:'1',value:'Arsip'}, {key: '2', value:'Arsip warna'}, {key: '3', value:'Dus tebal'}, 
+    // {key: '4', value:'Kertas buram'}, {key: '5', value:'Duplex'}, {key: '6', value:'Majalah'}, {key: '7', value:'Koran'}, {key: '8', value:'Karung semen'}, {key:'9',value:'Gelas bersih cup a'}, {key: '10', value:'Gelas kotor cup b'}, {key: '11', value:'Ember hitam'}, 
+    // {key: '12', value:'Emberan'}, {key: '13', value:'Galon'}, {key: '14', value:'Toples'}, {key: '15', value:'Kerasan'}, {key: '16', value:'Teh gelas'}, {key:'17',value:'Tutup galon'}, {key: '18', value:'Mainan'}, {key: '19', value:'Botol warna'}, 
+    // {key: '20', value:'PET A'}, {key: '21', value:'PET B'}, {key: '22', value:'Aluminium panci'}, {key: '23', value:'Aluminium aro'}, {key: '24', value:'Besi'}, {key:'25',value:'Kaleng'}, {key: '26', value:'Seng'}, {key: '27', value:'Stainless'}, 
+    // {key: '28', value:'Kompos/Organik'}, {key: '29', value:'Minyak jelantah'}, {key: '30', value:'Botol beling'}];
 
-    const [alat, setAlat] = useState([
-        {
-            id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Tong Sampah',
-            value: 'tong'
-        }, {
-            id: '2',
-            label: 'Gerobak Sampah',
-            value: 'gerobak'
-        }
-    ])
+    // const [alat, setAlat] = useState([
+    //     {
+    //         id: '1', // acts as primary key, should be unique and non-empty string
+    //         label: 'Tong Sampah',
+    //         value: 'tong'
+    //     }, {
+    //         id: '2',
+    //         label: 'Gerobak Sampah',
+    //         value: 'gerobak'
+    //     }
+    // ])
 
 
 
@@ -44,9 +44,9 @@ export default function BankSampahKeluarScreen({navigation}) {
                 <Image
                     style={styles.logo}
                     source={require('../assets/LogoBankSampahKeluar.png')}></Image>
-                <Text style={styles.title}>Sampah Keluar</Text>
+                <Text style={styles.title}>Sampah terjual</Text>
 
-                <View style={styles.row}>
+                {/* <View style={styles.row}>
                     <Text style={styles.textJudul}>Jenis Sampah</Text>
                     <Text style={styles.asterix}>*</Text>
                 </View>
@@ -83,15 +83,15 @@ export default function BankSampahKeluarScreen({navigation}) {
                     value={harga}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
-                />
+                /> */}
 
                 <View style={styles.row}>
-                    <Text style={styles.textJudul}>Nama Pembeli</Text>
+                    <Text style={styles.textJudul}>Nama Penyetor</Text>
                     <Text style={styles.asterix4}>*</Text>
                 </View>
                 <TextInput
                     style={styles.input}
-                    placeholder='Masukan nama penyetor  disini'
+                    placeholder='Masukan nama penyetor disini'
                     placeholderTextColor="#808080"
                     onChangeText={(text) => setNama(text)}
                     value={nama}
@@ -99,7 +99,7 @@ export default function BankSampahKeluarScreen({navigation}) {
                     autoCapitalize="none"
                 />
 
-                <Camera></Camera>
+                {/* <Camera></Camera> */}
                 
                 
                 
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
       button: {
         backgroundColor: '#AAEEE9',
         marginLeft: 40,
-        marginRight: 60,
+        marginRight: 40,
         marginTop: 20,
         height: 48,
         borderRadius: 5,
