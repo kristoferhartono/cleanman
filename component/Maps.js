@@ -8,8 +8,8 @@ export default function MapsScreen({navigation}) {
 	const [location, setLocation] = React.useState(null);
 
 	const [ pin, setPin ] = React.useState({
-		latitude: location.coords.latitude,
-		longitude: location.coords.longitude
+		latitude: -6.91897274489851,
+		longitude: 107.61081140488386
 	})
 	const [errorMsg, setErrorMsg] = React.useState(null);
 	useEffect(() => {
