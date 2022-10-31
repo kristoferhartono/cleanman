@@ -1,56 +1,44 @@
-import * as React from "react"
+import React, { useState, useEffect } from 'react';
 import { Dimensions, StyleSheet, Text, View,TouchableOpacity } from "react-native"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, {Callout, Circle, Marker } from "react-native-maps"
-
+import * as Location from 'expo-location';
 
 export default function MapsScreen({navigation}) {
+	const [location, setLocation] = React.useState(null);
 
- 	const [ region, setRegion ] = React.useState({
-		latitude: -6.915502599855987,
-		longitude: 107.60458365082741,
-		latitudeDelta: 0.0922,
-		longitudeDelta: 0.0421
+	const [ pin, setPin ] = React.useState({
+		latitude: location.coords.latitude,
+		longitude: location.coords.longitude
 	})
-  const [ pin, setPin ] = React.useState({
-		latitude: region.latitude,
-		longitude: region.longitude
-	})
+	const [errorMsg, setErrorMsg] = React.useState(null);
+	useEffect(() => {
+		(async () => {
+		  
+		  let { status } = await Location.requestForegroundPermissionsAsync();
+		  if (status !== 'granted') {
+			setErrorMsg('Permission to access location was denied');
+			return;
+		  }
+	
+		  let location = await Location.getCurrentPositionAsync({});
+		  setLocation(location)
+
+		  console.log(location)
+		})();
+	  }, []);
+	
+		  
+
+
+
 	
   const onKirimPress = () => {
     navigation.navigate("SampahLiar")
-}
+	}
+
 	return (
 		<View style={{  flex: 1 }}>
-			<GooglePlacesAutocomplete
-				placeholder="Search"
-				fetchDetails={true}
-				GooglePlacesSearchQuery={{
-					rankby: "distance"
-				}}
-				onPress={(data, details = null) => {
-					// 'details' is provided when fetchDetails = true
-					console.log(data, details)
-					setRegion({
-						latitude: details.geometry.location.lat,
-						longitude: details.geometry.location.lng,
-						latitudeDelta: 0.0922,
-						longitudeDelta: 0.0421
-					})
-				}}
-				query={{
-					key: "AIzaSyAfevgpvPNjRALaz3jPJhNgE040p9GnH5o",
-					language: "en",
-					components: "country: id  ",
-					types: "establishment",
-					radius: 30000,
-					location: `${region.latitude}, ${region.longitude}`
-				}}
-				styles={{
-					container: { flex: 0, position: "absolute", width: "100%", zIndex: 1 },
-					listView: { backgroundColor: "white" }
-				}}
-			/>
       <View>
                 <TouchableOpacity
                     style={styles.button}
@@ -63,7 +51,7 @@ export default function MapsScreen({navigation}) {
 				style={styles.map}
 				initialRegion={{
 					latitude: pin.latitude,
-		      longitude: pin.longitude,
+		      		longitude: pin.longitude,
 					latitudeDelta: 0.0922,
 					longitudeDelta: 0.0421
 				}}
@@ -94,6 +82,7 @@ export default function MapsScreen({navigation}) {
 	)
 }
 
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -121,3 +110,4 @@ buttonTitle: {
     fontWeight: "bold"
 },
 })
+
