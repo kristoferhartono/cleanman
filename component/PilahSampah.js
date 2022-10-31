@@ -6,8 +6,9 @@ import NavigationSetorSampahScreen from './NavigationSetorSampah';
 import RadioGroup from 'react-native-radio-buttons-group';
 import SelectList from 'react-native-dropdown-select-list'
 
-export default function SetorSampahScreen({navigation}) {
+export default function PilahSampahScreen({navigation}) {
     const [selected, setSelected] = React.useState("");
+    const [fullName, setFullName] = useState('');
 
     const onKirimPress = () => {
         navigation.navigate("Home")
@@ -16,27 +17,21 @@ export default function SetorSampahScreen({navigation}) {
     const data = [{key:'1',value:'0,5'}, {key: '2', value:'1'}, {key: '3', value:'1,5'}, 
     {key: '4', value:'2'}, {key: '5', value:'2,5'}, {key: '6', value:'3'}, {key: '7', value:'3,5'}, {key: '8', value:'4'}];
 
-    const tps = [{key:'1',value:'TPS Ganesha'}, {key: '2', value:'TPS Babakan Siliwangi'}, {key: '3', value:'TPS Baranang Siang'}, 
-    {key: '4', value:'TPS Gudang Selatan'}, {key: '5', value:'TPS Patra Komala'}];
-
-    const asal = [{key:'1',value:'RW I'}, {key: '2', value:'RW II'}, {key: '3', value:'RW III'}, 
-    {key: '4', value:'RW IV'}, {key: '5', value:'RW V'}, {key: '6', value:'RW VI'}, {key: '7', value:'RW VII'}, {key: '8', value:'RW VIII'}];
-
-    const [alat, setAlat] = useState([
+    const [jenis, setJenis] = useState([
         {
             id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Tong Sampah',
-            value: 'tong'
+            label: 'Sisa Makanan',
+            value: 'sisa'
         }, {
             id: '2',
-            label: 'Gerobak Sampah',
-            value: 'gerobak'
+            label: 'Sampah Jual',
+            value: 'jual'
         }
     ])
 
-    function onPressRadioButtonAlat(radioArrayAlat) {
-        console.log(radioArrayAlat);
-        setAlat(radioArrayAlat);
+    function onPressRadioButtonJenis(radioArrayJenis) {
+        console.log(radioArrayJenis);
+        setJenis(radioArrayJenis);
     }
 
     return (
@@ -44,17 +39,27 @@ export default function SetorSampahScreen({navigation}) {
             <KeyboardAwareScrollView>
                 <Image
                     style={styles.logo}
-                    source={require('../assets/LogoSetorSampah.png')}></Image>
-                <Text style={styles.title}>Setor Sampah</Text>
+                    source={require('../assets/LogoPilahSampah.png')}></Image>
+                <Text style={styles.title}>Pilah Sampah</Text>
                 
                 <View style={styles.row}>
-                    <Text style={styles.textJudul}>Yang Digunakan</Text>
+                    <Text style={styles.textJudul}>Nama Warga</Text>
                     <Text style={styles.asterix}>*</Text>
                 </View>
 
+                <TextInput
+                    style={styles.input}
+                    placeholder='Nama Lengkap'
+                    placeholderTextColor="#24292E"
+                    onChangeText={(text) => setFullName(text)}
+                    value={fullName}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                
                 <View style={styles.row}>
-                    <Image style = {styles.image1} source={require('../assets/TongSampah.png')}></Image>
-                    <Image style = {styles.image2} source={require('../assets/GerobakSampah.png')}></Image>
+                    <Text style={styles.textJudul}>Jenis Sampah</Text>
+                    <Text style={styles.asterix2}>*</Text>
                 </View>
 
                 <RadioGroup 
@@ -64,19 +69,14 @@ export default function SetorSampahScreen({navigation}) {
                         marginLeft: 30,
 
                     }}
-                    radioButtons={alat} 
+                    radioButtons={jenis} 
                     layout="row"
-                    onPress={onPressRadioButtonAlat} 
+                    onPress={onPressRadioButtonJenis} 
                 />
 
-                <View style = {styles.row}>
-                    <Text style={styles.textLiter1}>(120 Liter)</Text>
-                    <Text style={styles.textLiter2}>(1000 Liter)</Text>
-                </View>
-
                 <View style={styles.row}>
-                    <Text style={styles.textJudul2}>Jumlah Volume</Text>
-                    <Text style={styles.asterix2}>*</Text>
+                    <Text style={styles.textJudul}>Jumlah Volume (kg)</Text>
+                    <Text style={styles.asterix3}>*</Text>
                 </View>
 
                 <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
@@ -85,26 +85,6 @@ export default function SetorSampahScreen({navigation}) {
                 </View>
 
                 <Camera></Camera>
-                
-                <View style={styles.row}>
-                    <Text style={styles.textJudul2}>TPS Setor Sampah</Text>
-                    <Text style={styles.asterix3}>*</Text>
-                </View>
-
-                <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
-                    <SelectList data={tps} setSelected={setSelected} defaultOption={{ key:'1',value:'TPS Ganesha'}}>
-                    </SelectList>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.textJudul2}>Asal Sampah</Text>
-                    <Text style={styles.asterix4}>*</Text>
-                </View>
-
-                <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
-                    <SelectList data={asal} setSelected={setSelected} defaultOption={{ key:'1',value:'RW I'}}>
-                    </SelectList>
-                </View>
                 
                 <View style = {{marginTop: 20}}></View>
                 
@@ -187,45 +167,29 @@ const styles = StyleSheet.create({
         marginBottom: 7,
         marginRight: 90
     },
-    
-    textLiter1: {
-        fontSize: 12,
-        color: '#2e2e2d',
-        marginTop: 4,
-        marginBottom: 7,
-        marginLeft: 68
-    },
-
-    textLiter2: {
-        fontSize: 12,
-        color: '#2e2e2d',
-        marginTop: 4,
-        marginBottom: 7,
-        marginRight: 117
-    },
 
     asterix: {
         fontSize: 16,
         color: '#EF5DA8',
         fontWeight: "bold",
         marginTop: 10,
-        marginRight: 225
+        marginRight: 215
       },
 
     asterix2: {
         fontSize: 16,
         color: '#EF5DA8',
         fontWeight: "bold",
-        marginTop: 2,
-        marginRight: 217
+        marginTop: 10,
+        marginRight: 208
     },
 
     asterix3: {
         fontSize: 16,
         color: '#EF5DA8',
         fontWeight: "bold",
-        marginTop: 2,
-        marginRight: 195
+        marginTop: 10,
+        marginRight: 165
     },
 
     asterix4: {
@@ -270,4 +234,15 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
 
+    input: {
+        height: 48,
+        borderRadius: 5,
+        overflow: 'hidden',
+        backgroundColor: '#F5F5F5',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 30,
+        marginRight: 30,
+        paddingLeft: 16
+    }
 })

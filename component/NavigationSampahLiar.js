@@ -68,7 +68,7 @@ export default function NavigationSampahLiarScreen({}){
                     }}>
 
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('SetorSampah') }
+                            onPress={() => navigation.navigate('PilihSetor') }
                         >
                             <Image
                                 style={{  width: 30, height: 30 }}

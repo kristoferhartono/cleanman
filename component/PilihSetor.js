@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
 import NavigationHomeScreen from './NavigationHome';
+import NavigationSetorSampahScreen from './NavigationSetorSampah';
 
 
 
@@ -17,10 +18,10 @@ const cards = [
   { name: 'Card 5', image: "https://image.shutterstock.com/image-vector/freelance-developer-sitting-on-clock-600w-1122554897.jpg"  },
 ]
 
-export default function HomeScreen({ navigation }) {
+export default function PilihSetorScreen({ navigation }) {
   const data = [
-    {id:0, title: "Penyetoran", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/5971/5971921.png", navigateTo: "PilihSetor"},
-    {id:1, title: "Sampah Liar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3042/3042728.png", navigateTo: "SampahLiar"},
+    {id:0, title: "Setor Sampah", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3096/3096673.png", navigateTo: "SetorSampah"},
+    {id:1, title: "Pilah Sampah", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3904/3904789.png", navigateTo: "PilahSampah"},
 
   ]
 
@@ -107,7 +108,7 @@ export default function HomeScreen({ navigation }) {
           }}
           />
           <View>
-            <NavigationHomeScreen></NavigationHomeScreen>
+            <NavigationSetorSampahScreen></NavigationSetorSampahScreen>
           </View>
           
       </View>

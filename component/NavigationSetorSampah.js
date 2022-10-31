@@ -66,7 +66,7 @@ export default function NavigationSetorSampahScreen({}){
                 }}>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SetorSampah') }
+                        onPress={() => navigation.navigate('PilihSetor') }
                     >
                         <Image
                             style={{  width: 30, height: 30 }}
