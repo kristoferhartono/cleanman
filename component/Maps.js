@@ -5,53 +5,50 @@ import MapView, {Callout, Circle, Marker } from "react-native-maps"
 import * as Location from 'expo-location';
 
 export default function MapsScreen({navigation}) {
-	const [location, setLocation] = React.useState(null);
 
-	const [ pin, setPin ] = React.useState({
-		latitude: -6.91897274489851,
-		longitude: 107.61081140488386
-	})
+ 
 	const [errorMsg, setErrorMsg] = React.useState(null);
-	useEffect(() => {
-		(async () => {
-		  
-		  let { status } = await Location.requestForegroundPermissionsAsync();
-		  if (status !== 'granted') {
-			setErrorMsg('Permission to access location was denied');
-			return;
-		  }
-	
-		  let location = await Location.getCurrentPositionAsync({});
-		  setLocation(location)
+  useEffect(() => {
+    runFunction();
+  }, []);
+  
+  const runFunction = async () => {
+      
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+      return;
+    }
 
-		  console.log(location)
-		})();
-	  }, []);
-	
-		  
-
+    const location = await Location.getCurrentPositionAsync({});
+    setPin({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude});
 
 
-	
+    
+    console.log(location)
+
+
+  }
+  const [pin, setPin] = React.useState({
+    latitude: -6.915511919289829,
+    longitude: 107.60906931012869
+  })
+
   const onKirimPress = () => {
     navigation.navigate("SampahLiar")
 	}
 
 	return (
 		<View style={{  flex: 1 }}>
-      <View>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onKirimPress()}>
-                    <Text style={styles.buttonTitle}>Bagikan Lokasi</Text>
-                </TouchableOpacity>
-                </View>
+      
 
 			<MapView
 				style={styles.map}
 				initialRegion={{
 					latitude: pin.latitude,
-		      		longitude: pin.longitude,
+		      longitude: pin.longitude,
 					latitudeDelta: 0.0922,
 					longitudeDelta: 0.0421
 				}}
@@ -70,6 +67,8 @@ export default function MapsScreen({navigation}) {
 							latitude: e.nativeEvent.coordinate.latitude,
 							longitude: e.nativeEvent.coordinate.longitude
 						})
+            console.log("Drag end", e.nativeEvent.coordinate)
+            console.log(pin)
 					}}
 				>
 					<Callout>
@@ -78,6 +77,13 @@ export default function MapsScreen({navigation}) {
 				</Marker>
 				<Circle center={pin} radius={100} />
 			</MapView>
+      <View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onKirimPress()}>
+          <Text style={styles.buttonTitle}>Bagikan Lokasi</Text>
+        </TouchableOpacity>
+      </View>
 		</View>
 	)
 }
@@ -92,13 +98,14 @@ const styles = StyleSheet.create({
 	},
 	map: {
 		width: Dimensions.get("window").width,
-		height: Dimensions.get("window").height
+		height: Dimensions.get("window").height*0.89
 	},
   button: {
     backgroundColor: '#AAEEE9',
     marginLeft: 30,
     marginRight: 30,
-    marginTop: 50,
+
+
     height: 48,
     borderRadius: 5,
     alignItems: "center",
