@@ -1,19 +1,47 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { auth } from '../firebase';
+import { PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
+import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
+import { firebase } from '@react-native-firebase/auth';
 
 
 export default function LoginScreen({navigation}) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const countryCode = "+62"
+    const [noTelp, setNoTelp] = useState(countryCode)
+    const [otp, setOTP] = useState('')
+    const [verifcationId, setVerificationId] = useState(null);
+    const recaptchaVerifier = useRef(null)
+
+    const generateCaptcha = ()=>{
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchacontainer', {
+            'size': 'invisible',
+            'callback': (response) => {
+              // reCAPTCHA solved, allow signInWithPhoneNumber.
+            }
+          }, auth);
+    }
+
+    const requestOTP = async ()=>{
+        const phoneProvider = new PhoneAuthProvider(auth);
+        const verificationId = await phoneProvider.verifyPhoneNumber(
+            noTelp,
+            recaptchaVerifier.current
+          );
+        setVerificationId(verificationId);
+        showMessage({
+            text: 'Verification code has been sent to your phone.',
+        });
+    }
 
     const onFooterLinkPress = () => {
         navigation.navigate("Signup")
     }
 
     const onLoginPress = () => {
-        navigation.navigate("Home")
+        console.log(noTelp)
+        requestOTP;
     }
 
     const onLogin2Press = () => {
@@ -26,6 +54,9 @@ export default function LoginScreen({navigation}) {
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
+                <FirebaseRecaptchaVerifierModal
+                    ref={recaptchaVerifier}
+                    firebaseConfig={auth} />
                 <Text style={styles.title}>Login</Text>
                       <Image
                         style={styles.logo}
@@ -35,8 +66,8 @@ export default function LoginScreen({navigation}) {
                     style={styles.input}
                     placeholder='No Telepon'
                     placeholderTextColor="#24292E"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
+                    value={noTelp}
+                    onChangeText={(text) => setNoTelp(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -44,9 +75,9 @@ export default function LoginScreen({navigation}) {
                     style={styles.input}
                     placeholderTextColor="#24292e"
                     secureTextEntry
-                    placeholder='Kata Sandi'
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
+                    placeholder='OTP'
+                    onChangeText={(text) => setOTP(text)}
+                    value={otp}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -78,6 +109,10 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       backgroundColor: '#F9FEFD'
+  },
+  recaptchacontainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   title: {
     alignSelf: "center",
