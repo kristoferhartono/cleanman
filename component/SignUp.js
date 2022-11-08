@@ -5,7 +5,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('')
+    const [noTelp, setNoTelp] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -60,8 +60,8 @@ export default function RegistrationScreen({navigation}) {
                     style={styles.input}
                     placeholder='Nama Lengkap'
                     placeholderTextColor="#24292E"
-                    onChangeText={(text) => setFullName(text)}
                     value={fullName}
+                    onChangeText={text => setFullName(fullName)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -69,8 +69,8 @@ export default function RegistrationScreen({navigation}) {
                     style={styles.input}
                     placeholder='Nomor Telepon'
                     placeholderTextColor="#24292E"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
+                    value={noTelp}
+                    onChangeText={text => setNoTelp(noTelp)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -79,8 +79,8 @@ export default function RegistrationScreen({navigation}) {
                     placeholderTextColor="#24292E"
                     secureTextEntry
                     placeholder='Kata Sandi'
-                    onChangeText={(text) => setPassword(text)}
                     value={password}
+                    onChangeText={text => setPassword(password)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -89,8 +89,8 @@ export default function RegistrationScreen({navigation}) {
                     placeholderTextColor="#24292E"
                     secureTextEntry
                     placeholder='Konfirmasi Kata Sandi'
-                    onChangeText={(text) => setConfirmPassword(text)}
                     value={confirmPassword}
+                    onChangeText={text => setConfirmPassword(confirmPassword)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
