@@ -2,20 +2,34 @@ import React, { useState, useEffect } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RadioGroup from 'react-native-radio-buttons-group';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 
 export default function RegistrationScreen({navigation}) {
-    const [fullName, setFullName] = useState('')
-    const [noTelp, setNoTelp] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [isSignedIn, setIsSignedIn] = React.useState(false)
+    const [fullName, setFullName] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const [confirmPassword, setConfirmPassword] = React.useState('')
 
+
+
+
+    const handleLogin = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredentials =>{
+            console.log('user Created')
+            const user = userCredentials.user;
+            console.log(user.email);
+        })
+        .catch(error => alert(error.message))
+    }
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
     }
 
-    const onRegisterPress = () => {
-        navigation.navigate('Login')
-    }
+  
 
     const [lokasi, setLokasi] = useState([
         {
@@ -61,16 +75,16 @@ export default function RegistrationScreen({navigation}) {
                     placeholder='Nama Lengkap'
                     placeholderTextColor="#24292E"
                     value={fullName}
-                    onChangeText={text => setFullName(fullName)}
+                    onChangeText={text => setFullName(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Nomor Telepon'
+                    placeholder='Email'
                     placeholderTextColor="#24292E"
-                    value={noTelp}
-                    onChangeText={text => setNoTelp(noTelp)}
+                    value={email}
+                    onChangeText={text => setEmail(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -80,7 +94,7 @@ export default function RegistrationScreen({navigation}) {
                     secureTextEntry
                     placeholder='Kata Sandi'
                     value={password}
-                    onChangeText={text => setPassword(password)}
+                    onChangeText={text => setPassword(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -90,7 +104,7 @@ export default function RegistrationScreen({navigation}) {
                     secureTextEntry
                     placeholder='Konfirmasi Kata Sandi'
                     value={confirmPassword}
-                    onChangeText={text => setConfirmPassword(confirmPassword)}
+                    onChangeText={text => setConfirmPassword(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -125,7 +139,7 @@ export default function RegistrationScreen({navigation}) {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onRegisterPress()}>
+                    onPress={handleLogin}>
                     <Text style={styles.buttonTitle}>Buat Akun</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>

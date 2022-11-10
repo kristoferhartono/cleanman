@@ -5,6 +5,7 @@ import { Text, View, StyleSheet, Image, Pressable} from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-ico-material-design';
 
+
 // You can import from local files
 // import AssetExample from './components/AssetExample';
 
@@ -33,6 +34,8 @@ import UbahProfileBankSampahScreen from './component/UbahProfileBankSampah';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+ 
   return (
     <NavigationContainer>
 
@@ -66,4 +69,5 @@ export default function App() {
     
 
   );
+ 
 }

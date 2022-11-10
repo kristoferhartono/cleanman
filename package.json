@@ -34,7 +34,9 @@
     "react-native-radio-buttons-group": "^2.2.11",
     "react-native-svg": "^13.4.0",
     "react-native-table-component": "^1.2.2",
-    "react-native-webview": "^11.23.1"
+    "react-native-webview": "^11.23.1",
+    "@react-native-firebase/app": "~15.4.0",
+    "react-native-gesture-handler": "~2.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
