@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Dimensions, Alert, ScrollView} from 'react-native';
 import NavigationProfileScreen from './NavigationProfile';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 
 export default function Profile ({navigation}) {
     const onAddPress = () => {
@@ -14,6 +16,15 @@ export default function Profile ({navigation}) {
     const onRiwayatPress = () => {
       navigation.navigate("Riwayat")
     }
+
+    const handleSignOut = () => {
+      //console.log("Logged out from:", auth.currentUser?.email);
+      signOut(auth)
+      .then(() => {
+        navigation.navigate('Login')
+      }).catch(error => alert(error.message))
+    }
+
     const data = [
         {id:1,  name: "Breakfast",   image:"https://img.icons8.com/cotton/452/bread-and-rye--v1.png", navigateTo: "Login"},
       ]
@@ -60,7 +71,7 @@ export default function Profile ({navigation}) {
                     </View>
                     </View>
               </TouchableOpacity>              
-              <TouchableOpacity style={styles.buttonContainer} onPress={() => onAddPress()}>
+              <TouchableOpacity style={styles.buttonContainer} onPress={handleSignOut}>
                 <Text style={{color: "#000000", fontWeight: 'bold'}}>Log Out</Text> 
               </TouchableOpacity>
             </View>

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RadioGroup from 'react-native-radio-buttons-group';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { set, ref, Database } from 'firebase/database';
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebase } from '@react-native-firebase/auth';
 
 
 export default function RegistrationScreen({navigation}) {
@@ -19,14 +21,18 @@ export default function RegistrationScreen({navigation}) {
             console.log('user Created')
             const user = userCredentials.user;
             console.log(user.email);
+            const dbref = ref(db, "https://clean-hero-1b85f-default-rtdb.asia-southeast1.firebasedatabase.app")
+            set(ref(dbref, `/${uid}`), {
+                uid: user.uid,
+                nama: fullName,
+            })
         })
         .catch(error => alert(error.message))
     }
+
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
     }
-
-  
 
     const [lokasi, setLokasi] = useState([
         {
