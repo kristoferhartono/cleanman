@@ -1,10 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { auth } from '../firebase';
-
-
-
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function LoginScreen({navigation}) {
 
@@ -12,11 +10,11 @@ export default function LoginScreen({navigation}) {
     const [password, setPassword] = useState('')
 
     const handleLogin = () => {
-        auth
-        .createUserWithEmailAndPassword(email,password)
+        signInWithEmailAndPassword(auth, email,password)
         .then(userCredentials =>{
             const user = userCredentials.user;
-            console.log(user.email);
+            console.log('Logged in with :', user.email);
+            navigation.navigate("Home")
         })
         .catch(error => alert(error.message))
     }
@@ -27,7 +25,7 @@ export default function LoginScreen({navigation}) {
     }
 
     const onLoginPress = () => {
-        console.log(noTelp)
+       
         }
 
     const onLogin2Press = () => {
@@ -70,7 +68,7 @@ export default function LoginScreen({navigation}) {
                 </View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onLoginPress()}>
+                    onPress={handleLogin}>
                     <Text style={styles.buttonTitle}>Masuk Penyetor Sampah</Text>
                 </TouchableOpacity>
 
@@ -83,6 +81,7 @@ export default function LoginScreen({navigation}) {
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Belum memiliki akun? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Daftar sekarang!</Text></Text>
                 </View>
+                <View style= {{marginTop: 20}}></View>
             </KeyboardAwareScrollView>
         </View>
     )

@@ -13,10 +13,7 @@ export default function RegistrationScreen({navigation}) {
     const [password, setPassword] = React.useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
 
-
-
-
-    const handleLogin = () => {
+    const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
         .then(userCredentials =>{
             console.log('user Created')
@@ -139,11 +136,13 @@ export default function RegistrationScreen({navigation}) {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={handleLogin}>
+                    onPress={handleSignUp}>
                     <Text style={styles.buttonTitle}>Buat Akun</Text>
                 </TouchableOpacity>
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Sudah memiliki akun? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
+                </View>
+                <View style = {{marginTop: 20}}>
                 </View>
             </KeyboardAwareScrollView>
         </View>
