@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
 import NavigationHomeScreen from './NavigationHome';
+import { auth } from '../firebase';
 
 
 
@@ -51,7 +52,7 @@ export default function HomeScreen({ navigation }) {
 
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
-          Halo, Davin Setiawan</Text>
+          Halo, {auth.currentUser?.email}</Text>
         
           
       
