@@ -16,18 +16,25 @@ export default function RegistrationScreen({navigation}) {
     const [confirmPassword, setConfirmPassword] = React.useState('')
 
     const handleSignUp = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredentials =>{
-            console.log('user Created')
-            const user = userCredentials.user;
-            console.log(user.email);
-            const dbref = ref(db, "https://clean-hero-1b85f-default-rtdb.asia-southeast1.firebasedatabase.app")
-            set(ref(dbref, `/${uid}`), {
-                uid: user.uid,
-                nama: fullName,
+        if (password != confirmPassword) {
+            alert("Password yang dimasukkan tidak sama")
+        } else {
+            createUserWithEmailAndPassword(auth, email, password)
+            .then(userCredentials =>{
+                console.log('user Created')
+                const user = userCredentials.user;
+                console.log(user.email);
+                alert("Akun berhasil dibuat!")
+                navigation.navigate("Login")
+                set(ref(db, '/User:' + user.uid), {
+                    uid: user.uid,
+                    nama: fullName,
+                    lokasi: lokasi,
+                    tujuan: tujuan
+                })
             })
-        })
-        .catch(error => alert(error.message))
+            .catch(error => alert(error.message))
+        }
     }
 
     const onFooterLinkPress = () => {

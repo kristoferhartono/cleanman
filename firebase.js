@@ -16,7 +16,8 @@ const firebaseConfig = {
   storageBucket: "clean-hero-1b85f.appspot.com",
   messagingSenderId: "834206452001",
   appId: "1:834206452001:web:995a3bbdd1ba9f51579660",
-  measurementId: "G-YGRF0BZ1G7"
+  measurementId: "G-YGRF0BZ1G7",
+  databaseURL: "https://clean-hero-1b85f-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
 // Initialize Firebase
