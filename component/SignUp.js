@@ -26,7 +26,7 @@ export default function RegistrationScreen({navigation}) {
                 console.log(user.email);
                 alert("Akun berhasil dibuat!")
                 navigation.navigate("Login")
-                set(ref(db, '/User:' + user.uid), {
+                set(ref(db, 'users/' + user.uid), {
                     uid: user.uid,
                     nama: fullName,
                     lokasi: lokasi,
