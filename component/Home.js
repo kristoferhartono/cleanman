@@ -2,8 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
 import NavigationHomeScreen from './NavigationHome';
-import { auth } from '../firebase';
-
+import { auth, db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.8
@@ -25,12 +25,20 @@ export default function HomeScreen({ navigation }) {
 
   ]
 
+  const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
+ 
+  onValue(dbRef, (snapshot) => {
+    const namaUser = (snapshot.val() && snapshot.val().nama)
+    console.log(namaUser)
+  })
+
   const clickEventListener = (navigateTo) => {
     navigation.navigate(navigateTo)
   }
   const onAddPress = () => {
     navigation.navigate("Profile")
   }
+
   const renderViews = (views) => {
     const { cardStyleC } = styles
     return views.map((card, key) => {
@@ -52,7 +60,7 @@ export default function HomeScreen({ navigation }) {
 
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
-          Halo, {auth.currentUser?.email}</Text>
+          Halo, {}</Text>
         
           
       

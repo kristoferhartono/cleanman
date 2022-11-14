@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
 
 export default function LoginScreen({navigation}) {
 
@@ -14,22 +15,27 @@ export default function LoginScreen({navigation}) {
         .then(userCredentials =>{
             const user = userCredentials.user;
             console.log('Logged in with :', user.email);
-            navigation.navigate("Home")
+            const starCountRef = ref(db, 'users/' + user.uid + '/tujuan' + '/0' + '/selected')
+            const starCountRef2 = ref(db, 'users/' + user.uid + '/tujuan' + '/1' + '/selected')
+            onValue(starCountRef, (snapshot) => {
+                const data1 = snapshot.val();
+                if (data1 === true) {
+                    navigation.navigate("HomeBankSampah")
+                } else {
+                    onValue(starCountRef2, (snapshot) => {
+                        const data2 = snapshot.val()
+                        if (data2 === true) {
+                            navigation.navigate("Home")
+                        }
+                    })
+                }
+            })
         })
         .catch(error => alert(error.message))
     }
 
-
     const onFooterLinkPress = () => {
         navigation.navigate("Signup")
-    }
-
-    const onLoginPress = () => {
-       
-        }
-
-    const onLogin2Press = () => {
-        navigation.navigate("HomeBankSampah")
     }
     
     return (
@@ -69,13 +75,7 @@ export default function LoginScreen({navigation}) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={handleLogin}>
-                    <Text style={styles.buttonTitle}>Masuk Penyetor Sampah</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onLogin2Press()}>
-                    <Text style={styles.buttonTitle}>Masuk Bank Sampah</Text>
+                    <Text style={styles.buttonTitle}>Masuk</Text>
                 </TouchableOpacity>
 
                 <View style={styles.footerView}>
