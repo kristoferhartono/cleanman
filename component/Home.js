@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
 import NavigationHomeScreen from './NavigationHome';
 import { auth, db } from '../firebase';
@@ -25,11 +25,15 @@ export default function HomeScreen({ navigation }) {
 
   ]
 
+  const [nama, setNama] = useState('')
+
   const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
  
   onValue(dbRef, (snapshot) => {
-    const namaUser = (snapshot.val() && snapshot.val().nama)
-    console.log(namaUser)
+    const data = snapshot.val()
+    useEffect(()=>{
+      setNama(data.nama);
+    }, [])
   })
 
   const clickEventListener = (navigateTo) => {
@@ -60,7 +64,7 @@ export default function HomeScreen({ navigation }) {
 
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
-          Halo, {}</Text>
+          Halo, {nama}</Text>
         
           
       
