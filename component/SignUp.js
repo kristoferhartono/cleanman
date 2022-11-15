@@ -9,11 +9,12 @@ import { firebase } from '@react-native-firebase/auth';
 
 
 export default function RegistrationScreen({navigation}) {
-    const [isSignedIn, setIsSignedIn] = React.useState(false)
+    const countryCode = "+62"
     const [fullName, setFullName] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [confirmPassword, setConfirmPassword] = React.useState('')
+    const [noTelp, setNoTelp] = React.useState(countryCode)
 
     const handleSignUp = () => {
         if (password != confirmPassword) {
@@ -30,7 +31,8 @@ export default function RegistrationScreen({navigation}) {
                     uid: user.uid,
                     nama: fullName,
                     lokasi: lokasi,
-                    tujuan: tujuan
+                    tujuan: tujuan,
+                    noTelp: noTelp
                 })
             })
             .catch(error => alert(error.message))
@@ -98,6 +100,17 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+
+                <TextInput
+                    style={styles.input}
+                    placeholder='Nomor Telepon'
+                    placeholderTextColor="#24292E"
+                    value={noTelp}
+                    onChangeText={text => setNoTelp(text)}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#24292E"

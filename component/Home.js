@@ -25,14 +25,14 @@ export default function HomeScreen({ navigation }) {
 
   ]
 
-  const [nama, setNama] = useState('')
+  const [namaPengumpul, setNamaPengumpul] = useState('')
 
   const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
  
   onValue(dbRef, (snapshot) => {
     const data = snapshot.val()
     useEffect(()=>{
-      setNama(data.nama);
+      setNamaPengumpul(data.nama);
     }, [])
   })
 
@@ -64,7 +64,7 @@ export default function HomeScreen({ navigation }) {
 
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
-          Halo, {nama}</Text>
+          Halo, {namaPengumpul}</Text>
         
           
       

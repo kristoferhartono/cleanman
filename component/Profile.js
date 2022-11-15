@@ -1,12 +1,43 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Dimensions, Alert, ScrollView} from 'react-native';
 import NavigationProfileScreen from './NavigationProfile';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 import { signOut } from 'firebase/auth';
 
 export default function Profile ({navigation}) {
+  const [namaPengumpulProfile, setNamaPengumpulProfile] = useState('')
+  const [noTelpPengumpul, setNoTelpPengumpul] = useState('')
+  const [lokasiPengumpul, setLokasiPengumpul] = useState('')
+
+  const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
+ 
+  onValue(dbRef, (snapshot) => {
+    const data = snapshot.val()
+    useEffect(()=>{
+      setNamaPengumpulProfile(data.nama);
+      setNoTelpPengumpul(data.noTelp);
+    }, [])
+  })
+
+  const dbLokasi1 = ref(db, 'users/' + auth.currentUser?.uid + '/lokasi' + '/0')
+
+  onValue(dbLokasi1, (snapshot) => {
+    const data1 = snapshot.val()
+    if (data1.selected === true) {
+      useEffect(()=>{
+        setLokasiPengumpul(data1.value)
+      }, [])
+    }
+    else {
+      useEffect(()=>{
+        setLokasiPengumpul('DDG')
+      }, [])
+    }
+  })
+
     const onAddPress = () => {
         navigation.navigate("Login")
     }
@@ -35,10 +66,10 @@ export default function Profile ({navigation}) {
           <View style={styles.header}>
           </View>
           <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1620117654333-c125fef82817?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'}}/>
-          <Text style={styles.name}>Davin Setiawan</Text>
-              <Text style={styles.info}>0817-XXXX-XXXX</Text>
+          <Text style={styles.name}>{namaPengumpulProfile}</Text>
+              <Text style={styles.info}>{noTelpPengumpul}</Text>
               <Text style={styles.info}>Pengumpul Sampah</Text>
-              <Text style={styles.info}>Braga</Text>
+              <Text style={styles.info}>{lokasiPengumpul}</Text>
           <View style={styles.body}>
 
             <View style={styles.bodyContent}>

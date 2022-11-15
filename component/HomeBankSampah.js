@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
 import NavigationHomeBankSampahScreen from './NavigationHomeBankSampah';
-
-
+import { auth, db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.8
 const CARD_HEIGHT = Dimensions.get('window').height * 0.2
@@ -23,6 +23,17 @@ export default function HomeBankSampahScreen({ navigation }) {
     {id:1, title: "Sampah Dijual", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/6291/6291449.png", navigateTo: "BankSampahKeluar"},
 
   ]
+
+  const [namaPemilah, setNamaPemilah] = useState('')
+
+  const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
+ 
+  onValue(dbRef, (snapshot) => {
+    const data = snapshot.val()
+    useEffect(()=>{
+      setNamaPemilah(data.nama);
+    }, [])
+  })
 
   const clickEventListener = (navigateTo) => {
     navigation.navigate(navigateTo)
@@ -51,7 +62,7 @@ export default function HomeBankSampahScreen({ navigation }) {
 
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
-          Halo, Davin Setiawan</Text>
+          Halo, { namaPemilah }</Text>
         
         <StatusBar barStyle="dark-content" />
         <SafeAreaView style={container}>
