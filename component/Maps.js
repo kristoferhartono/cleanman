@@ -3,15 +3,32 @@ import { Dimensions, StyleSheet, Text, View,TouchableOpacity } from "react-nativ
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import MapView, {Callout, Circle, Marker } from "react-native-maps"
 import * as Location from 'expo-location';
+import { auth, db } from '../firebase';
+import { set, ref, update, push, Database } from 'firebase/database';
+
 
 export default function MapsScreen({navigation}) {
-
+	const [pin, setPin] = React.useState({
+		latitude: -6.915511919289829,
+		longitude: 107.60906931012869
+	  })
  
 	const [errorMsg, setErrorMsg] = React.useState(null);
-  useEffect(() => {
+  	useEffect(() => {
     runFunction();
   }, []);
-  
+
+
+
+  const handleGPS = () => {
+	navigation.navigate("SampahLiar", {
+		paramKey: pin,
+	})
+
+	
+
+	
+}
   const runFunction = async () => {
       
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -25,20 +42,22 @@ export default function MapsScreen({navigation}) {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude});
 
+	const alamat = await Location.reverseGeocodeAsync ({
+		latitude: location.coords.latitude,
+		longitude: location.coords.longitude
+	})
 
-    
+	
     console.log(location)
 
 
   }
-  const [pin, setPin] = React.useState({
-    latitude: -6.915511919289829,
-    longitude: 107.60906931012869
-  })
 
-  const onKirimPress = () => {
-    navigation.navigate("SampahLiar")
-	}
+
+
+
+    
+
 
 	return (
 		<View style={{  flex: 1 }}>
@@ -80,7 +99,11 @@ export default function MapsScreen({navigation}) {
       <View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onKirimPress()}>
+          onPress={() => 
+			navigation.navigate("SampahLiar", {
+			screen: 'CameraSampahLiar',
+			lokasi: pin,
+			})	}>
           <Text style={styles.buttonTitle}>Bagikan Lokasi</Text>
         </TouchableOpacity>
       </View>

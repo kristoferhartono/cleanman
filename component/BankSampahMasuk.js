@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable, ScrollView} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Camera from './Camera';
@@ -6,6 +6,11 @@ import NavigationSetorSampahScreen from './NavigationSetorSampah';
 import RadioGroup from 'react-native-radio-buttons-group';
 import SelectList from 'react-native-dropdown-select-list';
 import NavigationBankSampahMasukScreen from './NavigationBankSampahMasuk';
+import { auth, db } from '../firebase';
+import { set, ref, update, push, Database } from 'firebase/database';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebase } from '@react-native-firebase/auth';
+import RegistrationScreen from './SignUp.js';
 
 export default function BankSampahMasukScreen({navigation}) {
     const [selected, setSelected] = React.useState("");
@@ -14,7 +19,24 @@ export default function BankSampahMasukScreen({navigation}) {
     const [nama, setNama] = useState('');
     const [rumah, setRumah] = useState('');
 
+    const handleSampahditabung = () => {
+                    navigation.navigate("HomeBankSampah")
+                    console.log('yes')
+                    var waktu = new Date();
 
+                    push(ref(db, 'users/' + auth.currentUser?.uid + '/banksampah'), {
+                    berat: berat,
+                    harga: harga,
+                    nama: nama,
+                    rumah: rumah,
+                    data: selected,
+                    waktu: waktu.toDateString()
+
+                })
+            
+            .catch(error => alert(error.message))
+    }
+    
     const onKirimPress = () => {
         navigation.navigate("HomeBankSampah")
     }
@@ -121,7 +143,7 @@ export default function BankSampahMasukScreen({navigation}) {
                 <View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onKirimPress()}>
+                    onPress={handleSampahditabung}>
                     <Text style={styles.buttonTitle}>Kirim</Text>
                 </TouchableOpacity>
                 </View>

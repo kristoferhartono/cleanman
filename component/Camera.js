@@ -1,16 +1,57 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Image, Pressable, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation,useRoute } from '@react-navigation/native';
+import { auth, db, storage } from '../firebase';
+import { set, ref, update, push, Database } from 'firebase/database';
 
 
-export default class Camera extends React.Component {
-  state = {
-    image: null,
-  };
+export default function CameraSampahLiar () {
+  const navigation = useNavigation(); 
+  const route = useRoute();
+  const [image, setImage] = useState(null);
+  const[upload, setUpload] = useState(false);
 
 
-  takePicture = async () => {
+
+  const handleCamera = async() => {
+    if(image){   
+    // setUpload(true);
+    // const response = await fetch(image.uri)
+    // const blob = await response.blob();
+    // const filename = image.substring(image.uri.LastIndexOf('/')+1)
+    // var ref = storage.ref().child(filename).put(blob);
+
+    // try{
+    //   await ref;
+    // }catch (e){
+    //   console.log(e)
+    // }
+    // setUpload(false)
+
+    navigation.navigate("Home")
+    var waktu = new Date();
+    
+    push(ref(db, 'users/' + auth.currentUser?.uid + '/sampahliar'), {
+    gambar: image,
+    lokasi: route.params.lokasi,
+
+  
+    waktu: waktu.toDateString(),
+  
+  })
+  
+  
+  .catch(error => alert(error.message))
+    }else{
+      alert("Unggah Foto Sampah Liar")
+    }
+    setImage(null);
+    
+  }
+
+  const takePicture = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
         alert ("Fitur ini membutuhkan akses kamera");
@@ -19,29 +60,37 @@ export default class Camera extends React.Component {
     const { cancelled, uri } = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
     });
-    this.setState({ image: uri });
+    setImage(uri);
+    console.log(image)
   };
 
-  render() {
-    return (
+   return (
       <View style={styles.container}>
         
         <View style={styles.row}>
           <Text style={styles.textUnggah}>Unggah Foto</Text>
           <Text style={styles.asterix}>*</Text>
-          <Pressable onPress={this.takePicture}>
+          <Pressable onPress={takePicture}>
           <Image 
             style={styles.iconCamera}
              
             source={require('../assets/iconCamera.png')} ></Image>
           </Pressable>
             
-          <Image style={styles.image} source={{ uri: this.state.image } } />
+          <Image style={styles.image} source={{ uri: image } } />
+          
           
         </View>
+        <View>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={handleCamera}>
+                    <Text style={styles.buttonTitle}>Kirim</Text>
+                </TouchableOpacity>
+                </View>
       </View>
     );
-  }
+  
 }
 
 
@@ -85,5 +134,21 @@ const styles = StyleSheet.create({
       alignSelf: "center",
       marginTop: 20,
       marginBottom: 20,
-  }
+  },
+  button: {
+      backgroundColor: '#AAEEE9',
+      marginLeft: 30,
+      marginRight: 30,
+      marginTop: 20,
+      height: 48,
+      width:300,
+      borderRadius: 5,
+      alignItems: "center",
+      justifyContent: 'center'
+  },
+  buttonTitle: {
+      color: '#000000',
+      fontSize: 16,
+      fontWeight: "bold"
+  },
 });

@@ -32,7 +32,7 @@ export default function RegistrationScreen({navigation}) {
                     nama: fullName,
                     lokasi: lokasi,
                     tujuan: tujuan,
-                    noTelp: noTelp
+                    noTelp: noTelp,
                 })
             })
             .catch(error => alert(error.message))

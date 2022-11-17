@@ -19,14 +19,7 @@ const cards = [
 ]
 
 export default function HomeScreen({ navigation }) {
-  const data = [
-    {id:0, title: "Penyetoran", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/5971/5971921.png", navigateTo: "PilihSetor"},
-    {id:1, title: "Sampah Liar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3042/3042728.png", navigateTo: "SampahLiar"},
-
-  ]
-
   const [namaPengumpul, setNamaPengumpul] = useState('')
-
   const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
  
   onValue(dbRef, (snapshot) => {
@@ -35,6 +28,15 @@ export default function HomeScreen({ navigation }) {
       setNamaPengumpul(data.nama);
     }, [])
   })
+  const data = [
+    {id:0, title: "Penyetoran", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/5971/5971921.png", navigateTo: "PilihSetor"},
+    {id:1, title: "Sampah Liar", color:"#EBC7AD", image:"https://cdn-icons-png.flaticon.com/128/3042/3042728.png", navigateTo: "SampahLiar"},
+
+  ]
+
+  
+
+
 
   const clickEventListener = (navigateTo) => {
     navigation.navigate(navigateTo)

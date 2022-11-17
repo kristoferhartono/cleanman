@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import CameraSampahLiar from './Camera';
 import Camera from './Camera';
 import NavigationSampahLiarScreen from './NavigationSampahLiar';
 
@@ -11,9 +12,7 @@ export default function SampahLiarScreen({navigation}) {
     const onGpsPress = () => {
         navigation.navigate("Maps")
     }
-        const onKirimPress = () => {
-            navigation.navigate("Home")
-    }
+
     return (
         
         <View style={styles.container}>
@@ -25,8 +24,6 @@ export default function SampahLiarScreen({navigation}) {
                         source={require('../assets/LogoSampahLiar.png')} 
                       />
                 <Text style={styles.title}>Titik Sampah Liar</Text>
-                <Camera></Camera>
-
                 <View style={styles.row}>
                     <Text style={styles.textUnggah}>Bagikan Lokasi</Text>
                     <Text style={styles.asterix}>*</Text>
@@ -37,13 +34,10 @@ export default function SampahLiarScreen({navigation}) {
                         source={require('../assets/iconLokasiSampahLiar.png')} ></Image>
                     </Pressable>
                 </View>
-                <View>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onKirimPress()}>
-                    <Text style={styles.buttonTitle}>Kirim</Text>
-                </TouchableOpacity>
-                </View>
+                <CameraSampahLiar></CameraSampahLiar>
+
+                
+                
 
                 </KeyboardAwareScrollView>
 
