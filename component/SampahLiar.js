@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable} from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable, Alert} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import CameraSampahLiar from './Camera';
-import Camera from './Camera';
+import CameraSampahLiar from './CameraSampahLiar';
 import NavigationSampahLiarScreen from './NavigationSampahLiar';
-
-
+import { useRoute } from '@react-navigation/native';''
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+import { auth, db, storage } from '../firebase';
+import { set, ref, update, push, Database } from 'firebase/database';
 
 
 export default function SampahLiarScreen({navigation}) {
     const onGpsPress = () => {
         navigation.navigate("Maps")
     }
-
+    
+      
     return (
         
         <View style={styles.container}>
@@ -35,6 +38,8 @@ export default function SampahLiarScreen({navigation}) {
                     </Pressable>
                 </View>
                 <CameraSampahLiar></CameraSampahLiar>
+                
+               
 
                 
                 
@@ -190,5 +195,22 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginRight: 50
         
-    }
+    },
+    asterix2: {
+        fontSize: 16,
+        color: '#EF5DA8',
+        fontWeight: "bold",
+        marginTop: 45,
+        marginLeft: -100,
+      },
+  iconCamera: {
+      flex: 1,
+      height: 100,
+      width: 100,
+      alignSelf: "center",
+      marginTop: 20,
+      marginBottom: 20,
+      marginLeft: -80
+  },
+    
 })
