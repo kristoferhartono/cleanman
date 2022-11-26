@@ -2,19 +2,31 @@ import React, { useState, useEffect } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RadioGroup from 'react-native-radio-buttons-group';
+import { auth, db } from '../firebase';
+import { set, ref, update, push, Database } from 'firebase/database';
 
 export default function UbahProfileBankSampahScreen({navigation}) {
     const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    
+
+    const countryCode = "+62"
+    const [noTelp, setNoTelp] = React.useState(countryCode)
 
     const onFooterLinkPress = () => {
         navigation.navigate('ProfileBankSampah')
     }
 
     const onRegisterPress = () => {
-        navigation.navigate('HomeBankSampah')
+        navigation.navigate('Profile')
+
+        set(ref(db, 'users/' + auth.currentUser?.uid ), {
+            nama: fullName,
+            lokasi: lokasi,
+            tujuan: tujuan,
+            noTelp: noTelp,
+        })
+            
+        .catch(error => alert(error.message))
     }
 
     const [lokasi, setLokasi] = useState([
@@ -84,8 +96,8 @@ export default function UbahProfileBankSampahScreen({navigation}) {
                     style={styles.input}
                     placeholder='Nomor Telepon'
                     placeholderTextColor="#24292E"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
+                    onChangeText={(text) => setNoTelp(text)}
+                    value={noTelp}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />

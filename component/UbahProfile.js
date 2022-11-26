@@ -7,9 +7,7 @@ import { set, ref, update, push, Database } from 'firebase/database';
 
 export default function UbahProfileScreen({navigation}) {
     const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+
     const countryCode = "+62"
     const [noTelp, setNoTelp] = React.useState(countryCode)
 

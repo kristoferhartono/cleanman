@@ -81,13 +81,7 @@ export default function CameraSampahLiar () {
           
           
         </View>
-        <View>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleCamera}>
-                    <Text style={styles.buttonTitle}>Kirim</Text>
-                </TouchableOpacity>
-                </View>
+
       </View>
     );
   

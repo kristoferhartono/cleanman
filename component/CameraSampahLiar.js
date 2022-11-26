@@ -4,9 +4,8 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation,useRoute } from '@react-navigation/native';
 import { auth, db, storage } from '../firebase';
-import { set, ref, update, push, Database } from 'firebase/database';
-// import storage from '@react-native-firebase/storage';
-// import DocumentPicker from 'react-native-document-picker';
+import { set, update,ref as ref_database, push, Database } from 'firebase/database';
+import { getStorage, ref as ref_storage, uploadBytes } from 'firebase/storage';
 
 export default function CameraSampahLiar () {
   const navigation = useNavigation(); 
@@ -14,29 +13,33 @@ export default function CameraSampahLiar () {
   const [image, setImage] = useState(null);
   const[upload, setUpload] = useState(false);
 
-
+  const submitData = () => {
+    const storageRef = ref_storage(storage, "image");
+    uploadBytes(storageRef, image)
+    .then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  }
   const handleCamera = async() => {
     if (route.params.lokasi === ''){
         alert('Bagikan lokasi Anda')
     }else {
-        if(image){   
-            // setUpload(true);
-            // const response = await fetch(image.uri)
-            //c onst blob = await response.blob();
-            // const filename = image.substring(image.uri.LastIndexOf('/')+1)
-            // var ref = storage.ref().child(filename).put(blob);
-        
-            // try{
-            //   await ref;
-            // }catch (e){
-            //   console.log(e)
-            // }
-            // setUpload(false) 
-        
+        if(!image.cancelled){   
+          var tanggal = new Date();
+          const storage = getStorage();
+          const ref = ref_storage(storage, auth.currentUser?.uid + tanggal);
+          const img = await fetch(image);
+          const bytes = await img.blob();
+
+          await uploadBytes(ref, bytes);
+
             navigation.navigate("Home")
             var waktu = new Date();
             
-            push(ref(db, 'users/' + auth.currentUser?.uid + '/sampahliar'), {
+            push(ref_database(db, 'users/' + auth.currentUser?.uid + '/sampahliar'), {
             gambar: image,
             lokasi: route.params.lokasi,
         
@@ -55,16 +58,32 @@ export default function CameraSampahLiar () {
   }
 
   const takePicture = async () => {
-    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-    if (permissionResult.granted === false) {
-        alert ("Fitur ini membutuhkan akses kamera");
-        return;
-    }
-    const { cancelled, uri } = await ImagePicker.launchCameraAsync({
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: false,
+      quality: 1,
     });
-    setImage(uri);
-    console.log(image)
+    // if (!result.cancelled){
+    //   const storage = getStorage();
+    //   const ref = ref_storage(storage, 'image.jpg');
+    //   setImage(result.uri);
+    //   const img = await fetch(result.uri);
+    //   const bytes = await img.blob();
+
+    //   await uploadBytes(ref, bytes);
+    // }
+    setImage(result.uri);
+    // const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    // if (permissionResult.granted === false) {
+    //     alert ("Fitur ini membutuhkan akses kamera");
+    //     return;
+    // }
+    // let result= await ImagePicker.launchCameraAsync({
+    //   allowsEditing: false,
+    // });
+
+    // setImage(result.uri);
+    // console.log(result)
   };
 
    return (
