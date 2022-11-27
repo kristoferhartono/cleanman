@@ -1,11 +1,43 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Dimensions, Alert, ScrollView} from 'react-native';
+import { auth, db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 import NavigationProfileScreen from './NavigationProfile';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavigationProfileBankSampahScreen from './NavigationProfileBankSampah';
 
 export default function ProfileBankSampah ({navigation}) {
+    const [namaPemilahProfile, setNamaPemilahProfile] = useState('')
+    const [noTelpPemilah, setNoTelpPemilah] = useState('')
+    const [lokasiPemilah, setLokasiPemilah] = useState('')
+
+    const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
+ 
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val()
+      useEffect(()=>{
+        setNamaPemilahProfile(data.nama);
+        setNoTelpPemilah(data.noTelp);
+      }, [])
+    })
+
+    const dbLokasi1 = ref(db, 'users/' + auth.currentUser?.uid + '/lokasi' + '/0')
+
+    onValue(dbLokasi1, (snapshot) => {
+      const data1 = snapshot.val()
+      if (data1.selected === true) {
+        useEffect(()=>{
+          setLokasiPemilah(data1.value)
+        }, [])
+      }
+      else {
+        useEffect(()=>{
+          setLokasiPemilah('DDG')
+        }, [])
+      }
+    })
+
     const onAddPress = () => {
         navigation.navigate("Login")
     }
@@ -25,10 +57,10 @@ export default function ProfileBankSampah ({navigation}) {
           <View style={styles.header}>
           </View>
           <Image style={styles.avatar} source={{uri: 'https://images.unsplash.com/photo-1620117654333-c125fef82817?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'}}/>
-          <Text style={styles.name}>Davin Setiawan</Text>
-              <Text style={styles.info}>0817-XXXX-XXXX</Text>
+          <Text style={styles.name}>{namaPemilahProfile}</Text>
+              <Text style={styles.info}>{noTelpPemilah}</Text>
               <Text style={styles.info}>Pemilah Sampah</Text>
-              <Text style={styles.info}>Braga</Text>
+              <Text style={styles.info}>{lokasiPemilah}</Text>
           <View style={styles.body}>
 
             <View style={styles.bodyContent}>

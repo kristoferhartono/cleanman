@@ -1,41 +1,95 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useEffect} from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable, ScrollView} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Camera from './Camera';
 import NavigationSetorSampahScreen from './NavigationSetorSampah';
 import RadioGroup from 'react-native-radio-buttons-group';
 import SelectList from 'react-native-dropdown-select-list';
 import NavigationBankSampahMasukScreen from './NavigationBankSampahMasuk';
-import { auth, db } from '../firebase';
-import { set, ref, update, push, Database } from 'firebase/database';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebase } from '@react-native-firebase/auth';
 import RegistrationScreen from './SignUp.js';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { auth, db, storage } from '../firebase';
+import { set, update, onValue, ref as ref_database, push, Database } from 'firebase/database';
+import { getStorage, ref as ref_storage, uploadBytes } from 'firebase/storage';
 
-export default function BankSampahMasukScreen({navigation}) {
+export default function BankSampahMasukScreen() {
     const [selected, setSelected] = React.useState("");
     const [berat, setBerat] = useState('');
     const [harga, setHarga] = useState('');
     const [nama, setNama] = useState('');
     const [rumah, setRumah] = useState('');
+    const navigation = useNavigation(); 
+    const route = useRoute();
+    const [image, setImage] = useState(null);
+    const[upload, setUpload] = useState(false);
+    const [namaPenyetor, setNamaPenyetor] = useState();
+    const dbRef = ref_database(db, 'users/' + auth.currentUser?.uid)
 
-    const handleSampahditabung = () => {
-                    navigation.navigate("HomeBankSampah")
-                    console.log('yes')
-                    var waktu = new Date();
+    onValue(dbRef, (snapshot) => {
+        const data = snapshot.val()
+        useEffect(()=>{
+          setNamaPenyetor(data.nama);
+        }, [])
+      })
 
-                    push(ref(db, 'users/' + auth.currentUser?.uid + '/banksampah'), {
-                    berat: berat,
-                    harga: harga,
-                    nama: nama,
-                    rumah: rumah,
-                    data: selected,
-                    waktu: waktu.toDateString()
+      const handleCamera = async() => {
+        if(!image.cancelled){  
+          var tanggal = new Date();
+          const storage = getStorage();
+          const ref = ref_storage(storage, namaPenyetor + " Bank Sampah " + tanggal);
+          const img = await fetch(image);
+          const bytes = await img.blob();
 
-                })
+          await uploadBytes(ref, bytes);
+
+            navigation.navigate("HomeBankSampah")
+            var waktu = new Date();
             
-            .catch(error => alert(error.message))
-    }
+            push(ref_database(db, 'users/' + auth.currentUser?.uid + '/banksampah'), {
+                berat: berat,
+                harga: harga,
+                nama: nama,
+                rumah: rumah,
+                data: selected,
+                waktu: waktu.toDateString()
+          
+          })
+          
+          
+          .catch(error => alert(error.message))
+            }else{
+              alert("Unggah Foto Sampah Liar")
+            }
+      }
+      const takePicture = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: false,
+          quality: 1,
+        });
+        setImage(result.uri);
+
+    };
+    // const handleSampahditabung = () => {
+    //                 navigation.navigate("HomeBankSampah")
+    //                 console.log('yes')
+    //                 var waktu = new Date();
+
+    //                 push(ref(db, 'users/' + auth.currentUser?.uid + '/banksampah'), {
+    //                 berat: berat,
+    //                 harga: harga,
+    //                 nama: nama,
+    //                 rumah: rumah,
+    //                 data: selected,
+    //                 waktu: waktu.toDateString()
+
+    //             })
+            
+    //         .catch(error => alert(error.message))
+    // }
     
     const onKirimPress = () => {
         navigation.navigate("HomeBankSampah")
@@ -134,7 +188,20 @@ export default function BankSampahMasukScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Camera></Camera>
+                <View style={styles.row}>
+                    <Text style={styles.textUnggah}>Unggah Foto</Text>
+                    <Text style={styles.asterix6}>*</Text>
+                    <Pressable onPress={takePicture}>
+                    <Image 
+                        style={styles.iconCamera}
+                        
+                        source={require('../assets/iconCamera.png')} ></Image>
+                    </Pressable>
+            
+                    <Image style={styles.image} source={{ uri: image } } />
+          
+          
+                </View>
                 
                 
                 
@@ -143,7 +210,7 @@ export default function BankSampahMasukScreen({navigation}) {
                 <View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={handleSampahditabung}>
+                    onPress={handleCamera}>
                     <Text style={styles.buttonTitle}>Kirim</Text>
                 </TouchableOpacity>
                 </View>
@@ -302,7 +369,21 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginRight: 90
       },
-
+      textUnggah: {
+        fontSize: 16,
+        color: '#2e2e2d',
+        fontWeight: "bold",
+        marginLeft: 38,
+        marginTop: 55,
+        marginBottom: 7
+      },
+      asterix6: {
+        fontSize: 16,
+        color: '#EF5DA8',
+        fontWeight: "bold",
+        marginTop: 45,
+        marginRight: 10,
+      },
       button: {
         backgroundColor: '#AAEEE9',
         marginLeft: 40,
@@ -319,5 +400,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold"
     },
+    iconCamera: {
+        flex: 1,
+        height: 100,
+        width: 100,
+        alignSelf: "center",
+        marginTop: 20,
+        marginBottom: 20,
+    },
+    image: { marginTop: 20, marginLeft: 10, width: 100, height: 100, marginRight: 40, backgroundColor: '#F9FEFD'},
 
 })

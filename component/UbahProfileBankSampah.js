@@ -3,21 +3,27 @@ import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pre
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { auth, db } from '../firebase';
-import { set, ref, update, push, Database } from 'firebase/database';
+import { set, ref, update, push, Database, onValue } from 'firebase/database';
 
 export default function UbahProfileBankSampahScreen({navigation}) {
     const [fullName, setFullName] = useState('')
-    
+    const [noTelp, setNoTelp] = React.useState('')
+    const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
 
-    const countryCode = "+62"
-    const [noTelp, setNoTelp] = React.useState(countryCode)
+    onValue(dbRef, (snapshot) => {
+        const data = snapshot.val()
+        useEffect(()=>{
+          setFullName(data.nama);
+          setNoTelp(data.noTelp);
+        }, [])
+      })
 
     const onFooterLinkPress = () => {
         navigation.navigate('ProfileBankSampah')
     }
 
     const onRegisterPress = () => {
-        navigation.navigate('Profile')
+        navigation.navigate('ProfileBankSampah')
 
         set(ref(db, 'users/' + auth.currentUser?.uid ), {
             nama: fullName,

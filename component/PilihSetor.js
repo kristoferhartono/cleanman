@@ -1,6 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Alert, ScrollView, Dimensions, FlatList, Pressable, } from 'react-native';
+import { auth, db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 import NavigationHomeScreen from './NavigationHome';
 import NavigationSetorSampahScreen from './NavigationSetorSampah';
 
@@ -25,6 +27,16 @@ export default function PilihSetorScreen({ navigation }) {
 
   ]
 
+  const [namaPengumpul, setNamaPengumpul] = useState('')
+  const dbRef = ref(db, 'users/' + auth.currentUser?.uid)
+ 
+  onValue(dbRef, (snapshot) => {
+    const data = snapshot.val()
+    useEffect(()=>{
+      setNamaPengumpul(data.nama);
+    }, [])
+  })
+  
   const clickEventListener = (navigateTo) => {
     navigation.navigate(navigateTo)
   }
@@ -52,7 +64,7 @@ export default function PilihSetorScreen({ navigation }) {
 
         <View>
           <Text style={{color: "#000000", fontSize: 30, fontWeight: 'bold'}}>
-          Halo, Davin Setiawan</Text>
+          Halo, {namaPengumpul}</Text>
         
           
       

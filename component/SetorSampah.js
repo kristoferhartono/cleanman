@@ -1,20 +1,82 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable, ScrollView} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Camera from './Camera';
 import NavigationSetorSampahScreen from './NavigationSetorSampah';
 import RadioGroup from 'react-native-radio-buttons-group';
 import SelectList from 'react-native-dropdown-select-list'
+import * as ImagePicker from 'expo-image-picker';
+import { useNavigation,useRoute } from '@react-navigation/native';
+import { auth, db, storage } from '../firebase';
+import { set, update, onValue, ref as ref_database, push, Database } from 'firebase/database';
+import { getStorage, ref as ref_storage, uploadBytes } from 'firebase/storage';
 
 export default function SetorSampahScreen({navigation}) {
-    const [selected, setSelected] = React.useState("");
+    const [selected1, setSelected1] = React.useState("");
+    const [selected2, setSelected2] = React.useState("");
+    const [selected3, setSelected3] = React.useState("");
+    const [image, setImage] = useState(null);
 
-    const onKirimPress = () => {
-        navigation.navigate("Home")
+    const [namaPenyetor, setNamaPenyetor] = useState();
+    const dbRef = ref_database(db, 'users/' + auth.currentUser?.uid)
+
+    onValue(dbRef, (snapshot) => {
+        const data = snapshot.val()
+        useEffect(()=>{
+        setNamaPenyetor(data.nama);
+        }, [])
+    })
+
+    const submitData = () => {
+        const storageRef = ref_storage(storage, "image");
+        uploadBytes(storageRef, image)
+        .then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+        })
+        .catch((error) => {
+        console.log(error.message);
+        });
     }
+    const handleCamera = async() => {
+            if(!image.cancelled){  
+            var tanggal = new Date();
+            const storage = getStorage();
+            const ref = ref_storage(storage, namaPenyetor + " Setor Sampah " + tanggal);
+            const img = await fetch(image);
+            const bytes = await img.blob();
+
+            await uploadBytes(ref, bytes);
+
+                navigation.navigate("Home")
+                var waktu = new Date();
+                
+                push(ref_database(db, 'users/' + auth.currentUser?.uid + '/setorsampah'), {
+                jenisalat: alat,
+                volume: selected1,
+                tps: selected2,
+                asalsampah: selected3,
+                waktu: waktu.toDateString()
+            })
+            
+            
+            .catch(error => alert(error.message))
+                } else{
+                alert("Unggah Foto Penyetoran Sampah")
+                }
+        }
+            
+        const takePicture = async () => {
+            let result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.All,
+              allowsEditing: false,
+              quality: 1,
+            });
+            setImage(result.uri);
+    
+        };
 
     const data = [{key:'1',value:'0,5'}, {key: '2', value:'1'}, {key: '3', value:'1,5'}, 
-    {key: '4', value:'2'}, {key: '5', value:'2,5'}, {key: '6', value:'3'}, {key: '7', value:'3,5'}, {key: '8', value:'4'}];
+    {key: '4', value:'2'}, {key: '5', value:'2,5'}, {key: '6', value:'3'}, {key: '7', value:'3,5'}, {key: '8', value:'4'}, {key: '9', value:'4,5'}, {key: '10', value:'5'}];
 
     const tps = [{key:'1',value:'TPS Ganesha'}, {key: '2', value:'TPS Babakan Siliwangi'}, {key: '3', value:'TPS Baranang Siang'}, 
     {key: '4', value:'TPS Gudang Selatan'}, {key: '5', value:'TPS Patra Komala'}];
@@ -80,11 +142,9 @@ export default function SetorSampahScreen({navigation}) {
                 </View>
 
                 <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
-                    <SelectList data={data} setSelected={setSelected} defaultOption={{ key:'1',value:'0,5'}}>
+                    <SelectList data={data} setSelected={setSelected1} save="value" defaultOption={{ key:'1',value:'0,5'}}>
                     </SelectList>
                 </View>
-
-                <Camera></Camera>
                 
                 <View style={styles.row}>
                     <Text style={styles.textJudul2}>TPS Setor Sampah</Text>
@@ -92,7 +152,7 @@ export default function SetorSampahScreen({navigation}) {
                 </View>
 
                 <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
-                    <SelectList data={tps} setSelected={setSelected} defaultOption={{ key:'1',value:'TPS Ganesha'}}>
+                    <SelectList data={tps} setSelected={setSelected2} save="value" defaultOption={{ key:'1',value:'TPS Ganesha'}}>
                     </SelectList>
                 </View>
 
@@ -102,8 +162,23 @@ export default function SetorSampahScreen({navigation}) {
                 </View>
 
                 <View style = {{paddingHorizontal:40,paddingRight: 40,flex:1}}>
-                    <SelectList data={asal} setSelected={setSelected} defaultOption={{ key:'1',value:'RW I'}}>
+                    <SelectList data={asal} setSelected={setSelected3} save="value" defaultOption={{ key:'1',value:'RW I'}} >
                     </SelectList>
+                </View>
+
+                <View style={styles.row}>
+                    <Text style={styles.textUnggah}>Unggah Foto</Text>
+                    <Text style={styles.asterix6}>*</Text>
+                    <Pressable onPress={takePicture}>
+                    <Image 
+                        style={styles.iconCamera}
+                        
+                        source={require('../assets/iconCamera.png')} ></Image>
+                    </Pressable>
+            
+                    <Image style={styles.image} source={{ uri: image } } />
+          
+          
                 </View>
                 
                 <View style = {{marginTop: 20}}></View>
@@ -111,7 +186,7 @@ export default function SetorSampahScreen({navigation}) {
                 <View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onKirimPress()}>
+                    onPress={handleCamera}>
                     <Text style={styles.buttonTitle}>Kirim</Text>
                 </TouchableOpacity>
                 </View>
@@ -268,6 +343,31 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 16,
         fontWeight: "bold"
+    },  iconCamera: {
+        flex: 1,
+        height: 100,
+        width: 100,
+        alignSelf: "center",
+        marginTop: 20,
+        marginBottom: 20,
     },
+    image: { marginTop: 20, marginLeft: 10, width: 100, height: 100, marginRight: 40, backgroundColor: '#F9FEFD'},
+
+    textUnggah: {
+        fontSize: 16,
+        color: '#2e2e2d',
+        fontWeight: "bold",
+        marginLeft: 38,
+        marginTop: 55,
+        marginBottom: 7
+      },
+
+      asterix6: {
+        fontSize: 16,
+        color: '#EF5DA8',
+        fontWeight: "bold",
+        marginTop: 45,
+        marginRight: 10,
+      },
 
 })
