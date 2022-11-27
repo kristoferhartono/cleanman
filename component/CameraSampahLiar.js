@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image, Pressable, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation,useRoute } from '@react-navigation/native';
 import { auth, db, storage } from '../firebase';
-import { set, update,ref as ref_database, push, Database } from 'firebase/database';
+import { set, update, onValue, ref as ref_database, push, Database } from 'firebase/database';
 import { getStorage, ref as ref_storage, uploadBytes } from 'firebase/storage';
 
 export default function CameraSampahLiar () {
@@ -12,6 +12,15 @@ export default function CameraSampahLiar () {
   const route = useRoute();
   const [image, setImage] = useState(null);
   const[upload, setUpload] = useState(false);
+  const [namaPengumpulLiar, setNamaPengumpulLiar] = useState();
+  const dbRef = ref_database(db, 'users/' + auth.currentUser?.uid)
+
+  onValue(dbRef, (snapshot) => {
+    const data = snapshot.val()
+    useEffect(()=>{
+      setNamaPengumpulLiar(data.nama);
+    }, [])
+  })
 
   const submitData = () => {
     const storageRef = ref_storage(storage, "image");
@@ -27,10 +36,10 @@ export default function CameraSampahLiar () {
     if (route.params.lokasi === ''){
         alert('Bagikan lokasi Anda')
     }else {
-        if(!image.cancelled){   
+        if(!image.cancelled){  
           var tanggal = new Date();
           const storage = getStorage();
-          const ref = ref_storage(storage, auth.currentUser?.uid + tanggal);
+          const ref = ref_storage(storage, namaPengumpulLiar + " Sampah Liar " + tanggal);
           const img = await fetch(image);
           const bytes = await img.blob();
 
