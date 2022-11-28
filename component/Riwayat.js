@@ -1,11 +1,19 @@
 import React, { useState, Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { auth, db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 export default function RiwayatScreen({navigation}) {
     const onFooterLinkPress = () => {
         navigation.navigate('Profile')
     }
+    const starCountRef = ref(db, 'users/' + user.uid + '/setorsampah' + '/0' + '/selected')
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      updateStarCount(postElement, data);
+    });
+  
     const HeadTable = ['Hari', 'Tanggal', 'Jam', 'Volume',]
     const DataTable = [
       ['Senin', '19-09-2022', '14:21:35', '12 liter'],
