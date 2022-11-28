@@ -74,8 +74,7 @@ export default function PilahSampahScreen({navigation}) {
     
         };
 
-    const data = [{key:'1',value:'0,5'}, {key: '2', value:'1'}, {key: '3', value:'1,5'}, 
-    {key: '4', value:'2'}, {key: '5', value:'2,5'}, {key: '6', value:'3'}, {key: '7', value:'3,5'}, {key: '8', value:'4'}];
+    const data = [{value:'0,5'}, {value:'1'}, {value:'1,5'}, {value:'2'}, {value:'2,5'}, {value:'3'}, {value:'3,5'}, {value:'4'}];
 
     const [jenis, setJenis] = useState([
         {

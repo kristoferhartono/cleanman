@@ -95,11 +95,11 @@ export default function BankSampahMasukScreen() {
         navigation.navigate("HomeBankSampah")
     }
 
-    const data = [{key:'1',value:'Arsip'}, {key: '2', value:'Arsip warna'}, {key: '3', value:'Dus tebal'}, 
-    {key: '4', value:'Kertas buram'}, {key: '5', value:'Duplex'}, {key: '6', value:'Majalah'}, {key: '7', value:'Koran'}, {key: '8', value:'Karung semen'}, {key:'9',value:'Gelas bersih cup a'}, {key: '10', value:'Gelas kotor cup b'}, {key: '11', value:'Ember hitam'}, 
-    {key: '12', value:'Emberan'}, {key: '13', value:'Galon'}, {key: '14', value:'Toples'}, {key: '15', value:'Kerasan'}, {key: '16', value:'Teh gelas'}, {key:'17',value:'Tutup galon'}, {key: '18', value:'Mainan'}, {key: '19', value:'Botol warna'}, 
-    {key: '20', value:'PET A'}, {key: '21', value:'PET B'}, {key: '22', value:'Aluminium panci'}, {key: '23', value:'Aluminium aro'}, {key: '24', value:'Besi'}, {key:'25',value:'Kaleng'}, {key: '26', value:'Seng'}, {key: '27', value:'Stainless'}, 
-    {key: '28', value:'Kompos/Organik'}, {key: '29', value:'Minyak jelantah'}, {key: '30', value:'Botol beling'}];
+    const data = [{value:'Arsip'}, {value:'Arsip warna'}, {value:'Dus tebal'}, 
+    {value:'Kertas buram'}, {value:'Duplex'}, {value:'Majalah'}, {value:'Koran'}, {value:'Karung semen'}, {value:'Gelas bersih cup a'}, {value:'Gelas kotor cup b'}, {value:'Ember hitam'}, 
+    {value:'Emberan'}, {value:'Galon'}, {value:'Toples'}, {value:'Kerasan'}, {value:'Teh gelas'}, {value:'Tutup galon'}, {value:'Mainan'}, {value:'Botol warna'}, 
+    {value:'PET A'}, {value:'PET B'}, {value:'Aluminium panci'}, {value:'Aluminium aro'}, {value:'Besi'}, {value:'Kaleng'}, {value:'Seng'}, {value:'Stainless'}, 
+    {value:'Kompos/Organik'}, {value:'Minyak jelantah'}, {value:'Botol beling'}];
 
     const [alat, setAlat] = useState([
         {

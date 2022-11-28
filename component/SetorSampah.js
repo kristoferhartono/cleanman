@@ -75,14 +75,14 @@ export default function SetorSampahScreen({navigation}) {
     
         };
 
-    const data = [{key:'1',value:'0,5'}, {key: '2', value:'1'}, {key: '3', value:'1,5'}, 
-    {key: '4', value:'2'}, {key: '5', value:'2,5'}, {key: '6', value:'3'}, {key: '7', value:'3,5'}, {key: '8', value:'4'}, {key: '9', value:'4,5'}, {key: '10', value:'5'}];
+    const data = [{value:'0,5'}, {value:'1'}, {value:'1,5'}, 
+    {value:'2'}, {value:'2,5'}, {value:'3'}, {value:'3,5'}, {value:'4'}, {value:'4,5'}, {value:'5'}];
 
-    const tps = [{key:'1',value:'TPS Ganesha'}, {key: '2', value:'TPS Babakan Siliwangi'}, {key: '3', value:'TPS Baranang Siang'}, 
-    {key: '4', value:'TPS Gudang Selatan'}, {key: '5', value:'TPS Patra Komala'}];
+    const tps = [{value:'TPS Ganesha'}, {value:'TPS Babakan Siliwangi'}, {value:'TPS Baranang Siang'}, 
+    {value:'TPS Gudang Selatan'}, {value:'TPS Patra Komala'}];
 
-    const asal = [{key:'1',value:'RW I'}, {key: '2', value:'RW II'}, {key: '3', value:'RW III'}, 
-    {key: '4', value:'RW IV'}, {key: '5', value:'RW V'}, {key: '6', value:'RW VI'}, {key: '7', value:'RW VII'}, {key: '8', value:'RW VIII'}];
+    const asal = [{value:'RW I'}, {value:'RW II'}, {value:'RW III'}, 
+    {value:'RW IV'}, {value:'RW V'}, {value:'RW VI'}, {value:'RW VII'}, {value:'RW VIII'}];
 
     const [alat, setAlat] = useState([
         {

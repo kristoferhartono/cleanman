@@ -48,7 +48,7 @@ export default function CameraSampahLiar () {
             navigation.navigate("Home")
             var waktu = new Date();
             
-            push(ref_database(db, 'users/' + auth.currentUser?.uid + '/sampahliar'), {
+            push(ref_database(db, 'users/' + auth.currentUser?.uid + '/sampahliar').child(waktu), {
             gambar: image,
             lokasi: route.params.lokasi,
         
