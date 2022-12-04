@@ -1,19 +1,44 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState, useEffect} from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, Button, Pressable, ScrollView} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Camera from './Camera';
 import NavigationSetorSampahScreen from './NavigationSetorSampah';
 import RadioGroup from 'react-native-radio-buttons-group';
 import SelectList from 'react-native-dropdown-select-list';
 import NavigationBankSampahKeluarScreen from './NavigationBankSampahKeluar';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebase } from '@react-native-firebase/auth';
+import RegistrationScreen from './SignUp.js';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { auth, db, storage } from '../firebase';
+import { set, update, onValue, remove, ref as ref_database, push, Database } from 'firebase/database';
+import { getStorage, ref as ref_storage, uploadBytes } from 'firebase/storage';
 
-export default function BankSampahKeluarScreen({navigation}) {
+export default function BankSampahKeluarScreen({navigation, route}) {
     // const [selected, setSelected] = React.useState("");
     // const [berat, setBerat] = useState('');
     // const [harga, setHarga] = useState('');
     const [nama, setNama] = useState('');
-
-
+    const validasi = 'banksampah' + nama
+    const deleteData = async() => {
+        console.log(nama)
+        if(validasi){
+            remove(ref_database(db, 'users/' + auth.currentUser?.uid + '/banksampah'+ nama), {
+                // berat: berat,
+                // harga: harga,
+                // nama: nama,
+                // rumah: rumah,
+                // data: selected,
+                // waktu: waktu.toDateString()
+          
+          })
+          navigation.navigate("HomeBankSampah")
+        }
+        else{
+            alert("Nama tidak ditemukan")
+          } 
+    }
     const onKirimPress = () => {
         navigation.navigate("HomeBankSampah")
     }
@@ -108,7 +133,7 @@ export default function BankSampahKeluarScreen({navigation}) {
                 <View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => onKirimPress()}>
+                    onPress={deleteData}>
                     <Text style={styles.buttonTitle}>Kirim</Text>
                 </TouchableOpacity>
                 </View>

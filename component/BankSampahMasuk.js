@@ -48,7 +48,7 @@ export default function BankSampahMasukScreen() {
             navigation.navigate("HomeBankSampah")
             var waktu = new Date();
             
-            push(ref_database(db, 'users/' + auth.currentUser?.uid + '/banksampah'), {
+            push(ref_database(db, 'users/' + auth.currentUser?.uid + '/banksampah' + nama), {
                 berat: berat,
                 harga: harga,
                 nama: nama,
