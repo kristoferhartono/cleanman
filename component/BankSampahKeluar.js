@@ -23,7 +23,7 @@ export default function BankSampahKeluarScreen({navigation, route}) {
     const validasi = 'banksampah' + nama
     const deleteData = async() => {
         console.log(nama)
-        if(validasi){
+        if(ref_database(db, 'users/' + auth.currentUser?.uid + '/banksampah'+ nama)){
             remove(ref_database(db, 'users/' + auth.currentUser?.uid + '/banksampah'+ nama), {
                 // berat: berat,
                 // harga: harga,
@@ -33,6 +33,7 @@ export default function BankSampahKeluarScreen({navigation, route}) {
                 // waktu: waktu.toDateString()
           
           })
+          alert("Data berhasil dihapus!")
           navigation.navigate("HomeBankSampah")
         }
         else{
